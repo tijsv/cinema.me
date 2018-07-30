@@ -2,5 +2,10 @@ extends layout
 
 block content
   h1= movie.title
-  h5 Written by #{movie.author}
+  h5 Written by #{author}
   p= movie.body
+  hr
+  if user
+    if user.id == movie.author
+      a.btn.btn-default(href='/movies/edit/'+movie._id) Edit
+      a.btn.btn-danger.delete-movie(href='#', data-id=movie._id) Delete

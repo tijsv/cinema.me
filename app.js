@@ -4,8 +4,13 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+const config = require('./config/database');
 
-mongoose.connect('mongodb://localhost/cinemame');
+mongoose.connect(process.env.MONGODB_URI || config.database, { useNewUrlParser: true });
 var db = mongoose.connection;
 
 // Check connection
@@ -37,6 +42,49 @@ app.use(bodyParser.json())
 // set public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// express session middleware
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+
+// express messages middleware
+app.use(require('connect-flash')());
+app.use(function(request, response, next){
+  response.locals.messages = require('express-messages')(request, response);
+  next();
+})
+
+// express validator middleware
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value){
+    var namespace = param.split('.')
+    , root = namespace.shift()
+    , formParam = root;
+    while(namespace.length){
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg : msg,
+      value : value
+    };
+  }
+}));
+
+// passport config
+require('./config/passport')(passport);
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// enable global user variable
+app.get('*', function(request, response, next){
+  response.locals.user = request.user || null;
+  next();
+})
+
 // home route
 app.get('/', function(request, response) {
   Movie.find({}, function(error, movies){
@@ -51,39 +99,14 @@ app.get('/', function(request, response) {
   });
 });
 
-// get single movie
-app.get('/movie/:id', function(request, response){
-  Movie.findById(request.params.id, function(error, movie) {
-    response.render('movie.pug', {
-      movie: movie
-    });
-  });
-})
-
-// add route
-app.get('/movies/add', function(request, response) {
-  response.render('add_movie.pug', {
-    title: 'add movie'
-  });
-});
-
-// add submit POST route
-app.post('/movies/add', function(request, response){
-  let movie = new Movie();
-  movie.title = request.body.title;
-  movie.author = request.body.author;
-  movie.body = request.body.body;
-  movie.save(function(error){
-    if(error){
-      console.log(error);
-      return;
-    } else {
-      response.redirect('/');
-    }
-  });
-})
+// route files
+let movies = require('./routes/movies.js');
+let users = require('./routes/users.js');
+app.use('/movies', movies);
+app.use('/users', users);
 
 // start server
-app.listen(3000, function() {
-  console.log('Server started on port 3000...');
+var server = app.listen(process.env.PORT || 3000, function() {
+  var port = server.address().port;
+  console.log('Server started on port', port, '...');
 })
