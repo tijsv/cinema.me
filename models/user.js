@@ -13,6 +13,16 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  cinema: {
+    movies: {
+      type: Array,
+      required: false,
+    },
+    series: {
+      type: Array,
+      required: false,
+    },
   }
 });
 
