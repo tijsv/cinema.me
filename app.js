@@ -7,7 +7,6 @@ const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
 const app = express();
-const port = 8080;
 
 // connect to the database
 mongoose.connect(process.env.MONGODB_URI || config.database, { useNewUrlParser: true });
@@ -75,6 +74,8 @@ let users = require('./routes/users.js');
 app.use('/', home);
 app.use('/users', users);
 
-app.listen(port, function(){
-  console.log('Server is running on port', port, '...');
-});
+// start server
+var server = app.listen(process.env.PORT || 3000, function() {
+  var port = server.address().port;
+  console.log('Server started on port', port, '...');
+})
