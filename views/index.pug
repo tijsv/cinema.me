@@ -1,8 +1,0 @@
-extends layout
-
-block content
-  //- h1 #{title}
-  ul.list-group
-    each movie, i in movies
-      li.list-group-item
-        a(href="/movies/"+movie._id)= movie.title

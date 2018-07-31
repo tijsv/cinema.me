@@ -1,10 +1,12 @@
 {
-  "name": "cinema.me",
+  "name": "cinema.me_v2",
   "version": "1.0.0",
-  "description": "Simple way to store your watched/to be watched movies and series",
+  "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js",
+    "scss": "sass --sourcemap=none --watch ./public/scss:./public/css",
+    "dev": "concurrently --kill-others \"npm run start\" \"npm run scss\""
   },
   "author": "Tijs Verellen",
   "license": "ISC",
@@ -12,13 +14,14 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-ejs-layouts": "^2.4.0",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
     "mongoose": "^5.2.5",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "pug": "^2.0.3"
+    "passport-local": "^1.0.0"
   }
 }

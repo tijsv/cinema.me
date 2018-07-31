@@ -1,0 +1,42 @@
+body, p, a, h1, h2, h3, h4, h5, ul, li {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  padding: 10px;
+  background-color: rgba(20,20,20,1);
+  p {
+    color: rgba(240,240,240,1);
+    display: inline-block;
+    padding-right: 10px;
+  }
+}
+
+#messages {
+  margin: 10px 0;
+  ul {
+    text-decoration: none;
+    list-style-type: none;
+  }
+  .error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+  .success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+}

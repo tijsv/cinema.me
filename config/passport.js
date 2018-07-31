@@ -1,7 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user.js');
-const config = require('../config/database');
 const bcrypt = require('bcryptjs');
 
 module.exports = function(passport){
@@ -12,7 +11,7 @@ module.exports = function(passport){
     User.findOne(query, function(error, user){
       if(error) throw error;
       if(!user){
-        return done(null, false, {message: 'No user found'});
+        return done(null, false, {message: 'Username not found.'});
       }
       // match password
       bcrypt.compare(password, user.password, function(error, isMatch){
@@ -20,7 +19,7 @@ module.exports = function(passport){
         if(isMatch) {
           return done(null, user);
         } else {
-          return done(null, false, {message: 'Wrong password'});
+          return done(null, false, {message: 'Wrong password.'});
         }
       });
     });

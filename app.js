@@ -1,46 +1,30 @@
-// Node.js & Express From Scratch (Part 6 done)
-
 const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
+const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
-const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
+const app = express();
+const port = 8080;
 
+// connect to the database
 mongoose.connect(process.env.MONGODB_URI || config.database, { useNewUrlParser: true });
 var db = mongoose.connection;
 
-// Check connection
-db.once('open', function(){
-  console.log('Connected to MongoDB');
-})
+// set the view engine to ejs and use expressLayouts
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
-// Check for db errors
-db.on('error', function(error) {
-  console.log(error);
-});
+// declare static files folder name
+app.use(express.static(__dirname + "/public"));
 
-// init app
-const app = express();
-
-// bring in models
-let Movie = require('./models/movie');
-
-// load view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// ---------- MIDDLEWARE ---------- //
 
 // body parser middleware
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
 app.use(bodyParser.json())
-
-// set public folder
-app.use(express.static(path.join(__dirname, 'public')));
 
 // express session middleware
 app.use(session({
@@ -51,10 +35,10 @@ app.use(session({
 
 // express messages middleware
 app.use(require('connect-flash')());
-app.use(function(request, response, next){
-  response.locals.messages = require('express-messages')(request, response);
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
   next();
-})
+});
 
 // express validator middleware
 app.use(expressValidator({
@@ -73,11 +57,11 @@ app.use(expressValidator({
   }
 }));
 
-// passport config
-require('./config/passport')(passport);
-// passport middleware
+// import passport config file after initializing
 app.use(passport.initialize());
 app.use(passport.session());
+// config file with localStrategy
+require('./config/passport.js')(passport);
 
 // enable global user variable
 app.get('*', function(request, response, next){
@@ -85,28 +69,12 @@ app.get('*', function(request, response, next){
   next();
 })
 
-// home route
-app.get('/', function(request, response) {
-  Movie.find({}, function(error, movies){
-    if(error){
-      console.log(error);
-    } else {
-      response.render('index.pug', {
-        title: 'cinema.me',
-        movies: movies
-      });
-    }
-  });
-});
-
-// route files
-let movies = require('./routes/movies.js');
+// declare the routes
+let home = require('./routes/home.js');
 let users = require('./routes/users.js');
-app.use('/movies', movies);
+app.use('/', home);
 app.use('/users', users);
 
-// start server
-var server = app.listen(process.env.PORT || 3000, function() {
-  var port = server.address().port;
-  console.log('Server started on port', port, '...');
-})
+app.listen(port, function(){
+  console.log('Server is running on port', port, '...');
+});
