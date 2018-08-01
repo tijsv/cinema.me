@@ -96,7 +96,7 @@ router.post('/register', function(request, response){
 // login process
 router.post('/login', function(request, response, next){
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/cinema',
     failureRedirect: '/users/login',
     failureFlash: true
   })(request, response, next);

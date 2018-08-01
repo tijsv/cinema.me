@@ -71,8 +71,10 @@ app.get('*', function(request, response, next){
 // declare the routes
 let home = require('./routes/home.js');
 let users = require('./routes/users.js');
+let cinema = require('./routes/cinema.js')
 app.use('/', home);
 app.use('/users', users);
+app.use('/cinema', cinema);
 
 // start server
 var server = app.listen(process.env.PORT || 3000, function() {
