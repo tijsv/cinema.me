@@ -57,7 +57,7 @@ router.post('/my_screen', function(request, response) {
         return;
       } else {
         request.flash('success', 'Successfully added');
-        response.redirect('my_screen');
+        response.redirect('/cinema');
       }
     })
   }

@@ -46,11 +46,10 @@ function getMovies(searchText){
       var moviePoster = movie.Poster;
       if (moviePoster=="N/A") { moviePoster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg" };
       output += `
-        <div class="movie-item">
+        <div class="movie-item" onclick="movieSelected('${movie.imdbID}')">
           <img src="${moviePoster}">
           <div class="text">
             <h5>${movie.Title}</h5>
-            <a onclick="movieSelected('${movie.imdbID}')" class="details" href="#">Details</a>
             <a onclick="movieSelected('${movie.imdbID}')" class="add" href="#">Add ${movie.Type}</a>
           </div>
         </div>

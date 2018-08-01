@@ -11,7 +11,9 @@
     <header>
       <h1 id="header-logo">cinema.me</h1>
       <% if(locals.user) { %>
-        <p>Logged in as <%- user.username %></p>
+        <a class="menu" href="/">Home</a>
+        <a class="menu" href="/cinema">My cinema</a>
+        <p>Logged in as <span><%- user.username %></span></p>
         <a href="/users/logout">Logout</a>
       <% } else { %>
         <a href="/users/register">Register</a>

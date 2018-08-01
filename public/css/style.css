@@ -30,7 +30,10 @@ header {
   header p {
     color: #f9f9fa;
     display: inline-block;
-    padding-right: 10px; }
+    padding: 0 10px 0 20px;
+    font-size: 0.8em; }
+    header p span {
+      font-weight: 700; }
   header a {
     color: #f9f9fa;
     padding: 10px;
@@ -46,6 +49,8 @@ header {
   header a:hover {
     background-color: #ff9300;
     transition: 0.15s all ease; }
+  header .menu {
+    background-color: #cc433f; }
 
 #messages {
   text-align: center; }
@@ -88,7 +93,7 @@ header {
       margin: 0 auto;
       text-align: center; }
     .content .content-title h3 {
-      font-size: 2em;
+      font-size: 1.5em;
       font-weight: 700;
       text-transform: uppercase;
       color: #89b2ba;
@@ -177,18 +182,19 @@ header {
     position: relative;
     width: 20%;
     height: 29.75vw;
-    overflow: hidden; }
+    overflow: hidden;
+    cursor: pointer; }
     #movies .movie-item img {
       position: absolute;
       width: 100%;
       height: 100%;
       overflow: hidden;
-      transition: 0.4s all ease; }
+      transition: 0.4s all ease;
+      z-index: -1; }
     #movies .movie-item .text {
       position: absolute;
       width: 100%;
       height: 100%;
-      z-index: 1;
       background-color: rgba(37, 35, 47, 0.9);
       transition: 0.4s all ease; }
       #movies .movie-item .text h5 {
@@ -196,43 +202,39 @@ header {
         font-weight: 700;
         padding: 20px;
         position: absolute; }
-      #movies .movie-item .text a {
+      #movies .movie-item .text .add {
         padding: 10px;
         font-weight: 300;
         text-transform: uppercase;
         font-size: 0.9em;
-        cursor: pointer;
         transition: 0.15s all ease;
-        position: absolute; }
-      #movies .movie-item .text .details {
-        color: #f9f9fa;
-        background-color: #89b2ba;
-        bottom: 0;
-        right: 0; }
-      #movies .movie-item .text .add {
+        position: absolute;
         color: #f9f9fa;
         background-color: #cc433f;
         bottom: 0;
-        left: 0; }
-      #movies .movie-item .text a:hover {
+        right: 0; }
+      #movies .movie-item .text .add:hover {
         background-color: #ff9300;
         transition: 0.15s all ease; }
   #movies .movie-item:hover img {
     transform: scale(1.1);
     transition: 0.4s all ease; }
-  #movies .movie-item:hover .text-on-top {
-    background-color: rgba(37, 35, 47, 0.7);
+  #movies .movie-item:hover .text {
+    background-color: rgba(37, 35, 47, 0.4);
     transition: 0.4s all ease; }
 
 #movie {
   width: 100%; }
   #movie .my-screen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     overflow: auto; }
     #movie .my-screen img {
       max-height: 100%;
       float: left; }
     #movie .my-screen .text {
-      width: 40%;
+      width: 60%;
       margin: 40px 10% 0 10%;
       float: left; }
       #movie .my-screen .text p {
@@ -253,8 +255,24 @@ header {
       #movie .my-screen .text span {
         text-transform: uppercase;
         opacity: 0.5; }
+      #movie .my-screen .text .submit {
+        color: #f9f9fa;
+        padding: 12px;
+        background-color: #89b2ba;
+        border-radius: 2px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: 0.15s all ease;
+        margin-bottom: 20px; }
+      #movie .my-screen .text .submit:hover {
+        background-color: #ff9300;
+        transition: 0.15s all ease; }
 
 #movies-user, #series-user {
+  width: 100%;
+  background-color: rgba(249, 249, 250, 0.05);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
