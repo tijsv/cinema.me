@@ -1,21 +1,21 @@
 <%- contentFor('main') %>
 
 <div class="content">
+  <div class="content-form">
+    <h1>login page</h1>
 
-  <h1>login page</h1>
-
-  <form method="POST" action="/users/login">
-    <div class="form-item">
-      <label>Username:</label>
-      <input name="username" type="text" />
-    </div>
-    <div class="form-item">
-      <label>Password:</label>
-      <input name="password" type="password"/>
-    </div>
-    <div class="form-item">
-      <input class="submit" type="submit" value="Submit"/>
-    </div>
-  </form>
-
+    <form method="POST" action="/users/login">
+      <div class="form-item">
+        <label>Username:</label>
+        <input name="username" type="text" />
+      </div>
+      <div class="form-item">
+        <label>Password:</label>
+        <input name="password" type="password"/>
+      </div>
+      <div class="form-item">
+        <input class="submit" type="submit" value="Submit"/>
+      </div>
+    </form>
+  </div>
 </div>

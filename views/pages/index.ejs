@@ -1,25 +1,38 @@
 <%- contentFor('main') %>
 
 <div class="content">
-  <h1>Oh hi Mark</h1>
-  <p>
-    Register for free and follow your favorite series with just a few clicks.
-  </p>
+  <div class="content-inner">
 
-  <% if(locals.user) { %>
+    <% if(!locals.user) { %>
 
-  <h2>THIS IS VISIBLE ONLY WHEN YOU ARE LOGGED IN</h2>
+    <h1>Oh hi Mark</h1>
 
-  <div class="searchDiv">
-    <h3>Search for movies or series</h3>
-    <form id="searchForm">
-      <input type="text" id="searchText" placeholder="Search here..." />
-    </form>
+    <p>
+      Register for free and follow your favorite series with just a few clicks.
+    </p>
+
+    <% } %>
+
+    <% if(locals.user) { %>
+
+    <h2>This is only visible when you're logged in (helps the dev greatly)</h2>
+
+    <div class="searchDiv">
+      <h1>Search for movies or series</h3>
+      <form id="searchForm">
+        <input type="text" id="searchText" placeholder="Search here..." />
+      </form>
+    </div>
+
   </div>
 
-  <div id="movies">
-  </div>
+</div>
 
-  <% } %>
+<div id="movies">
+</div>
 
+<% } %>
+
+<!-- Waarom zijn deze nodig? -->
+</div>
 </div>

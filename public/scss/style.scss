@@ -1,8 +1,14 @@
-$primaryColor: #EAC67A;
-$secondaryColor: #233237;
-$contrastColor: #984B43;
-$darkColor: #18121E;
-$lightColor: rgba(240,240,240,1);
+// $primaryColor: #EAC67A;
+// $secondaryColor: #233237;
+// $contrastColor: #984B43;
+// $darkColor: #18121E;
+// $lightColor: rgba(240,240,240,1);
+
+$primaryColor: #ff9300; // rgb(255,147,0)
+$secondaryColor: #cc433f; // rgb(204,67,63)
+$contrastColor: #89b2ba; // rgb(137,178,186)
+$darkColor: #25232f; // rgb(37,35,47)
+$lightColor: #f9f9fa; // rgb(249,249,250)
 
 body, p, a, h1, h2, h3, h4, h5, ul, li {
   padding: 0;
@@ -19,7 +25,7 @@ body {
 }
 
 header {
-  background-color: $secondaryColor;
+  background-color:rgba(249,249,250,0.05);
   list-style-type: none;
   text-align: right;
   padding: 25px;
@@ -30,6 +36,12 @@ header {
     float: left;
     line-height: 0px;
     padding: 10px;
+    transition: 0.15s all ease;
+    cursor: pointer;
+  }
+  h1:hover{
+    transition: 0.15s all ease;
+    color: $primaryColor;
   }
   p {
     color: $lightColor;
@@ -37,11 +49,11 @@ header {
     padding-right: 10px;
   }
   a {
-    color: $secondaryColor;
+    color: $lightColor;
     padding: 10px;
-    background-color: $primaryColor;
+    background-color: $contrastColor;
     border-radius: 2px;
-    font-weight: 500;
+    font-weight: 300;
     text-transform: uppercase;
     font-size: 0.9em;
     margin-left: 15px;
@@ -50,13 +62,13 @@ header {
     transition: 0.15s all ease;
   }
   a:hover {
-    background-color: $lightColor;
+    background-color: $primaryColor;
     transition: 0.15s all ease;
   }
 }
 
 #messages {
-  margin: 10px 0;
+  margin: 20px 0;
   ul {
     text-decoration: none;
     list-style-type: none;
@@ -86,37 +98,43 @@ header {
 }
 
 .content {
-  width: 80vw;
-  margin: 40px auto;
+  margin: 80px auto;
   color: white;
+  .content-inner {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .content-form {
+    width: 30%;
+    margin: 0 auto;
+  }
   h1 {
-    width: 60%;
-    margin: 0 auto 40px auto;
-    font-size: 4em;
+    margin-bottom: 40px;
+    font-size: 2em;
     font-weight: 700;
-    // text-transform: uppercase;
+    text-transform: uppercase;
   }
   h2 {
-    width: 60%;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
+    font-size: 1.4em;
     font-weight: 500;
+    color: $secondaryColor;
   }
   p {
-    width: 60%;
-    margin: 0 auto 40px auto;
+    margin-bottom: 40px;
+    font-size: 0.9em;
     font-weight: 400;
     opacity: 0.8;
   }
   form {
     width: 100%;
     .form-item {
-      width: 60%;
-      margin: 0 auto;
       padding: 10px 0;
       label {
-        font-size: 1;
-        font-weight: 400;
+        font-size: 1em;
+        font-weight: 300;
         letter-spacing: 0.05em;
+        text-transform: uppercase;
       }
       input {
         padding: 10px;
@@ -124,23 +142,31 @@ header {
         width: 100%;
         font-size: 1em;
         box-sizing : border-box;
+        background-color:rgba(249,249,250,0.05);
+        color: $lightColor;
+        border: 1px solid rgba(20,20,20,0.4);
+        border-radius: 2px;
+      }
+      input:focus {
+        outline: none;
+      }
+      ::placeholder {
+        color: rgba(249,249,250,0.3);
       }
       .submit {
         color: $lightColor;
-        padding: 15px;
+        padding: 12px;
         background-color: $contrastColor;
         border-radius: 2px;
-        font-weight: 500;
+        font-weight: 300;
         text-transform: uppercase;
-        font-size: 0.9em;
         margin-top: 20px;
         letter-spacing: 0.05em;
         cursor:pointer;
         transition: 0.15s all ease;
       }
       .submit:hover {
-        background-color: $lightColor;
-        color: $secondaryColor;
+        background-color: $primaryColor;
         transition: 0.15s all ease;
       }
     }
@@ -148,27 +174,30 @@ header {
 }
 
 .searchDiv {
-  width: 60%;
   margin: 0 auto;
-  padding: 20px 0;
-  h3 {
-    font-weight: 500;
-  }
   #searchForm {
     width: 100%;
     input {
       padding: 10px;
-      margin: 10px 0 40px 0;
       width: 100%;
       font-size: 1em;
       box-sizing : border-box;
+      background-color:rgba(249,249,250,0.05);
+      color: $lightColor;
+      border: 1px solid rgba(20,20,20,0.4);
+      border-radius: 2px;
+    }
+    input:focus {
+      outline: none;
+    }
+    ::placeholder {
+      color: rgba(249,249,250,0.3);
     }
   }
 }
 
 // grid for movies
 #movies {
-  width: 80vw;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -176,16 +205,64 @@ header {
   align-content: flex-start;
   .movie-item {
     position: relative;
-    width: 18.5vw;
-    height: 26.75vw;
-    margin: 0.5vw;
-    border-radius: 2px;
+    width: 20%;
+    height: 29.75vw;
     overflow: hidden;
-    border-left: 0.5vw solid $secondaryColor;
     img {
       position: absolute;
       width: 100%;
       height: 100%;
+      overflow: hidden;
+      transition: 0.4s all ease;
+    }
+    .text-on-top {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background-color: rgba(37,35,47,0.9);
+      transition: 0.4s all ease;
+      h5 {
+        font-size: 1.4em;
+        font-weight: 700;
+        padding: 20px;
+        position: absolute;
+      }
+      a {
+        padding: 10px;
+        font-weight: 300;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        cursor:pointer;
+        transition: 0.15s all ease;
+        position: absolute;
+      }
+      .details {
+        color: $lightColor;
+        background-color: $contrastColor;
+        bottom: 0;
+        right: 0;
+      }
+      .add {
+        color: $lightColor;
+        background-color: $secondaryColor;
+        bottom: 0;
+        left: 0;
+      }
+      a:hover {
+        background-color: $primaryColor;
+        transition: 0.15s all ease;
+      }
+    }
+  }
+  .movie-item:hover {
+    img {
+      transform: scale(1.1);
+      transition: 0.4s all ease;
+    }
+    .text-on-top {
+      background-color: rgba(37,35,47,0.7);
+      transition: 0.4s all ease;
     }
   }
 }
@@ -194,6 +271,6 @@ header {
 #footer {
   color: $lightColor;
   text-align: center;
-  background-color: $secondaryColor;
+  background-color:rgba(249,249,250,0.05);
   padding: 20px;
 }
