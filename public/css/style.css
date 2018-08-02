@@ -63,7 +63,7 @@ header {
     border-color: #ebccd1;
     position: relative;
     padding: 0.75rem 1.25rem;
-    margin: 0 auto 0.25rem auto;
+    margin: 0 auto 0 auto;
     border: 1px solid transparent; }
   #messages .success {
     color: #155724;
@@ -71,7 +71,7 @@ header {
     border-color: #c3e6cb;
     position: relative;
     padding: 0.75rem 1.25rem;
-    margin: 0 auto 0.25rem auto;
+    margin: 0 auto 0 auto;
     border: 1px solid transparent; }
 
 .no-margin {
