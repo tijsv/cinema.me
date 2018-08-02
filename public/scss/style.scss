@@ -29,8 +29,10 @@ header {
     float: left;
     line-height: 0px;
     padding: 10px;
+    font-weight: 700;
     transition: 0.15s all ease;
     cursor: pointer;
+    color: $lightColor;
   }
   h1:hover{
     transition: 0.15s all ease;
@@ -197,38 +199,31 @@ header {
   #searchForm {
     width: 100%;
     position: relative;
-    i {
-      position: absolute;
-      text-align: center;
-      top: 20px;
-      right: 20px;
-      opacity: 0.3;
-      font-size: 1.4em;
-      z-index: -1;
-    }
     input {
       padding: 15px 0;
       width: 100%;
-      font-size: 1.4em;
       background-color: rgba(249,249,250,0.1);
-      color: $lightColor;
+      color: $darkColor;
+      font-size: 1em;
+      font-weight: 500;
       transition: 0.2s all ease;
       text-align: center;
     }
     input:focus {
-      background-color: $contrastColor;
-      padding: 30px 0;
+      background-color: $lightColor;
+      padding: 20px 0;
       transition: 0.2s all ease;
       outline: none;
     }
     input:hover, {
-      background-color: $contrastColor;
-      padding: 30px 0;
+      background-color: $lightColor;
+      padding: 20px 0;
       transition: 0.2s all ease;
       z-index: 1;
     }
     input:hover::-webkit-input-placeholder {
       opacity: 1;
+      color: $darkColor;
       margin-left: 0px;
       transition: 0.2s all ease;
     }
@@ -238,8 +233,7 @@ header {
     ::placeholder {
       opacity: 0.2;
       margin-left:20px;
-      font-size: 0.8em;
-      font-weight: 300;
+      font-weight: 400;
       color: $lightColor;
       text-align: center;
       transition: 0.2s all ease;
@@ -328,9 +322,8 @@ header {
       float: left;
     }
     .text {
-      // width: 60%;
-      margin: 40px 10%;
-      float: left;
+      margin: 40px auto;
+      width: 40%;
       p {
         font-weight: 400;
         margin-bottom: 20px;
@@ -339,16 +332,16 @@ header {
         font-size: 2.4em;
         font-weight: 700;
         text-transform: uppercase;
-        color: $primaryColor;
+        color: $lightColor;
       }
       .genre {
-        font-size: 1em;
+        font-size: 1.2em;
         font-weight: 700;
         text-transform: uppercase;
-        color: $contrastColor;
+        color: $primaryColor;
       }
       .plot {
-        line-height: 20px;
+        line-height: 1.6em;
       }
       span {
         text-transform: uppercase;
@@ -365,8 +358,26 @@ header {
         cursor:pointer;
         transition: 0.15s all ease;
         margin-bottom: 20px;
+        margin-right: 20px;
       }
       .submit:hover {
+        background-color: $primaryColor;
+        transition: 0.15s all ease;
+      }
+      .remove {
+        color: $lightColor;
+        padding: 12px;
+        background-color: $secondaryColor;
+        border-radius: 2px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor:pointer;
+        transition: 0.15s all ease;
+        margin-bottom: 20px;
+        margin-right: 20px;
+      }
+      .remove:hover {
         background-color: $primaryColor;
         transition: 0.15s all ease;
       }
@@ -456,10 +467,10 @@ header {
     }
   }
   .title-movies {
-    background-color: $primaryColor;
+    background-color: $darkColor;
   }
   .title-series {
-    background-color: $secondaryColor;
+    background-color: $darkColor;
   }
 }
 

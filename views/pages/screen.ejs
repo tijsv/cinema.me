@@ -1,0 +1,40 @@
+<%- contentFor('main') %>
+<div class="content no-margin">
+  <div class="searchDiv">
+    <form id="searchForm" autocomplete="off">
+      <input type="text" id="searchText" placeholder="Click here to search for movies or series ..." />
+      <!-- <i class="fa fa-search"></i> -->
+    </form>
+  </div>
+
+  <div id="movies">
+  </div>
+
+  <div id="movie">
+    <div class="my-screen">
+      <img src="<%-poster%>">
+      <div class="text">
+        <p class="title"><%-title%></p>
+        <p class="genre"><%-genreString%></p>
+        <p class="plot"><%-plot%></p>
+        <p class="released"><span>Released:</span> <%-released%></p>
+        <form method="POST" action="/cinema/screen/<%-type%><%-Id%>">
+          <input type="hidden" name="Id" value="<%-Id%>"/>
+          <input type="hidden" name="type" value="<%-type%>"/>
+          <input class="submit" type="submit" value="Add to list"/>
+          <% if (type=="movie") { %>
+          <% for (i=0;i<user.cinema.movies.length;i++) { %>
+          <% if (user.cinema.movies[i]===Id) { %>
+          <input class="remove" type="submit" value="Remove from list"/>
+          <% } } } %>
+          <% if (type=="tv") {%>
+          <% for (i=0;i<user.cinema.series.length;i++) { %>
+          <% if (user.cinema.series[i]===Id) { %>
+          <input class="remove" type="submit" value="Remove from list"/>
+          <% } } } %>
+        </form>
+      </div>
+    </div>
+    <img class="background" src="<%-poster%>">
+  </div>
+</div>
