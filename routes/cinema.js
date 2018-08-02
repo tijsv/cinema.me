@@ -27,8 +27,8 @@ router.get('/my_screen', function(request, response) {
 router.post('/my_screen', function(request, response) {
   const Id = request.body.Id;
   const type = request.body.type;
-  if(type == "episode"){
-    request.flash('error', 'You cannot add one episode to your list. Select your favorite series instead!');
+  if(type != "movie" && type != "tv"){
+    request.flash('error', 'You can only add a movie or a series to your list');
     response.redirect('my_screen');
     return;
   } else {
@@ -41,7 +41,7 @@ router.post('/my_screen', function(request, response) {
         response.redirect('my_screen');
         return;
       }
-    } else if(type == "series"){
+    } else if(type == "tv"){
       if(!(user.cinema.series.includes(Id))) {
         user.cinema.series.push(Id);
       } else {

@@ -1,142 +1,172 @@
+var api_key = "e13c2a215ac12da642ab41538b30e620";
+
 $(document).ready(function(){
   // script for search function
   $('#searchForm').on('submit', function(e){
     let searchText = $('#searchText').val()
-    getMovies(searchText);
+    searchTMDB(searchText);
     e.preventDefault();
   });
-
   // make h1 in header clickable
   $('#header-logo').on('click', function(){
     window.location.href = "/";
   });
-
   // get movie when on the my_screen page
   if(window.location.pathname === '/cinema/my_screen') {
-    getMovie();
+    getId();
   }
-
   // show movies when on
   if(window.location.pathname === '/cinema') {
     let allMovies = document.getElementsByClassName('movie');
     let allSeries = document.getElementsByClassName('series');
     for(i=0;i<allMovies.length;i++) {
-      getMovieById(allMovies[i]);
+      getResultById(allMovies[i], "movie");
     }
     for(i=0;i<allSeries.length;i++) {
-      getSeriesById(allSeries[i]);
+      getResultById(allSeries[i], "tv");
     }
   }
-
 });
 
-function movieSelected(id) {
-  sessionStorage.setItem('movieId', id);
+function resultSelected(Id, type) {
+  sessionStorage.setItem('Id', Id);
+  sessionStorage.setItem('type', type);
   window.location = 'cinema/my_screen';
   return false;
 }
 
-function getMovies(searchText){
-  console.log('getMovies started ...');
-  axios.get('http://www.omdbapi.com?s=' + searchText + '&apikey=6ce0a5e8')
-  .then(function(response){
-    let movies = response.data.Search;
+function searchTMDB(searchText){
+  console.log('searchTMDB started ...');
+  var url = 'https://api.themoviedb.org/3/search/multi?api_key=' + api_key + '&language=en-US&query=' + searchText + '&page=1&include_adult=false&append_to_response=external_ids';
+  var HTTPRequest = new XMLHttpRequest();
+  HTTPRequest.open('GET', url, true);
+  HTTPRequest.onload = function () {
+    var data = JSON.parse(this.response);
+    console.log(data);
+    let results = data.results;
     let output = "";
-    $.each(movies, function(index, movie){
-      var moviePoster = movie.Poster;
-      if (moviePoster=="N/A") { moviePoster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg" };
+    $.each(results, function(index, result){
+      var poster = 'https://image.tmdb.org/t/p/w500';
+      var title = "";
+      if(result.poster_path) {
+        poster += result.poster_path;
+      } else {
+        poster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg"
+      }
+      if(result.media_type=="movie"){
+        title = result.title;
+      } else if(result.media_type=="tv"){
+        title = result.name;
+      }
       output += `
-        <div class="movie-item" onclick="movieSelected('${movie.imdbID}')">
-          <img src="${moviePoster}">
+        <div class="movie-item" onclick="resultSelected('${result.id}','${result.media_type}')">
+          <img src="${poster}">
           <div class="text">
-            <h5>${movie.Title}</h5>
-            <a onclick="movieSelected('${movie.imdbID}')" class="add" href="#">Add ${movie.Type}</a>
+            <h5>${title}</h5>
+            <p class="type">${result.media_type}</a>
           </div>
         </div>
       `;
     });
     $('#movies').html(output);
-  })
-  .catch(function(error){
-    console.log(error);
-  })
+  }
+  HTTPRequest.send();
 }
 
-function getMovie(){
-  let movieId = sessionStorage.getItem('movieId');
-  axios.get('http://www.omdbapi.com?i=' + movieId + '&apikey=6ce0a5e8')
-  .then(function(response){
-    console.log(response);
-    let movie = response.data;
-    var moviePoster = movie.Poster;
-    if (moviePoster=="N/A") { moviePoster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg" };
+function getId(){
+  console.log('getId started ...');
+  let Id = sessionStorage.getItem('Id');
+  let type = sessionStorage.getItem('type');
+  let url = 'https://api.themoviedb.org/3/';
+  if(type=="movie"){
+    url += 'movie/' + Id + '?api_key=' + api_key + '&language=en-US';
+  } else if(type=="tv"){
+    url += 'tv/' + Id + '?api_key=' + api_key + '&language=en-US';
+  }
+  var HTTPRequest = new XMLHttpRequest();
+  HTTPRequest.open('GET', url, true);
+  HTTPRequest.onload = function () {
+    var result = JSON.parse(this.response);
+    console.log(result);
+    var poster = 'https://image.tmdb.org/t/p/w500';
+    var title = "";
+    var released = "";
+    if(result.poster_path) {
+      poster += result.poster_path;
+    } else {
+      poster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg"
+    }
+    if(type=="movie"){
+      title = result.title;
+      released = result.release_date;
+    } else if(type=="tv"){
+      title = result.name;
+      released = result.first_air_date;
+    }
+    var genreString = "";
+    for(i=0;i<result.genres.length;i++){
+      if(i==0){
+        genreString += result.genres[i].name;
+      } else{
+        genreString += ', ' + result.genres[i].name;
+      }
+    }
     let output = `
       <div class="my-screen">
-        <img src="${moviePoster}">
+        <img src="${poster}">
         <div class="text">
-          <p class="title">${movie.Title}</p>
-          <p class="genre">${movie.Genre}</p>
-          <p class="plot">${movie.Plot}</p>
-          <p class="director"><span>Director:</span> ${movie.Director}</p>
-          <p class="writer"><span>Writer:</span> ${movie.Writer}</p>
-          <p class="imdbrating"><span>imdbRating:</span> ${movie.imdbRating}</p>
-          <p class="released"><span>Released:</span> ${movie.Released}</p>
-          <p class="type"><span>Type:</span> ${movie.Type}</p>
+          <p class="title">${title}</p>
+          <p class="genre">${genreString}</p>
+          <p class="plot">${result.overview}</p>
+          <p class="released"><span>Released:</span> ${released}</p>
           <form method="POST" action="/cinema/my_screen">
-            <input type="hidden" name="Id" value="${movieId}"/>
-            <input type="hidden" name="type" value="${movie.Type}"/>
-            <input class="submit" type="submit" value="Add ${movie.Type}"/>
+            <input type="hidden" name="Id" value="${Id}"/>
+            <input type="hidden" name="type" value="${type}"/>
+            <input class="submit" type="submit" value="Add to list"/>
           </form>
         </div>
       </div>
+      <img class="background" src="${poster}">
     `;
     $('#movie').html(output);
-  })
-  .catch(function(error){
-    console.log(error);
-  })
+  }
+  HTTPRequest.send();
 }
 
-function getMovieById(movieObject){
-  let thisId = movieObject.dataset.id;
-  axios.get('http://www.omdbapi.com?i=' + thisId + '&apikey=6ce0a5e8')
-  .then(function(response){
-    let movie = response.data;
-    var moviePoster = movie.Poster;
-    if (moviePoster=="N/A") { moviePoster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg" };
+function getResultById(object, type){
+  let Id = object.dataset.id;
+  console.log('getResultById started ...');
+  let url = 'https://api.themoviedb.org/3/';
+  if(type=="movie"){
+    url += 'movie/' + Id + '?api_key=' + api_key + '&language=en-US';
+  } else if(type=="tv"){
+    url += 'tv/' + Id + '?api_key=' + api_key + '&language=en-US';
+  }
+  var HTTPRequest = new XMLHttpRequest();
+  HTTPRequest.open('GET', url, true);
+  HTTPRequest.onload = function () {
+    var result = JSON.parse(this.response);
+    var poster = 'https://image.tmdb.org/t/p/w500';
+    var title = "";
+    if(result.poster_path) {
+      poster += result.poster_path;
+    } else {
+      poster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg"
+    }
+    if(type=="movie"){
+      title = result.title;
+    } else if(type=="tv"){
+      title = result.name;
+    }
     let output = `
-    <div class="user-item">
-      <img src="${moviePoster}">
-      <div class="text">
-        <h5>${movie.Title}</h5>
-        <a onclick="movieSelected('${movie.imdbID}')" class="details" href="#">Movie details</a>
+      <div class="list-item" onclick="resultSelected('${result.id}','${type}')">
+        <img src="${poster}">
+        <div class="text">
+          <h5>${title}</h5>
+        </div>
       </div>
-    </div>
     `;
-    movieObject.innerHTML = output;
-  })
-  .catch(function(error){
-    console.log(error);
-  })
-}
-
-function getSeriesById(seriesObject){
-  let thisId = seriesObject.dataset.id;
-  axios.get('http://www.omdbapi.com?i=' + thisId + '&apikey=6ce0a5e8')
-  .then(function(response){
-    let series = response.data;
-    var seriesPoster = series.Poster;
-    if (seriesPoster=="N/A") { seriesPoster = "https://m.media-amazon.com/images/M/MV5BYThkZTZlZWQtNjMzMy00NTlkLThhOTQtMTNiZTc2MTBlNzExXkEyXkFqcGdeQXVyNzI1MDI1NDU@._V1_SX300.jpg" };
-    let output = `
-    <img src="${seriesPoster}">
-    <div class="text">
-      <h5>${series.Title}</h5>
-      <a onclick="movieSelected('${series.imdbID}')" class="details" href="#">Series details</a>
-    </div>
-    `;
-    seriesObject.innerHTML = output;
-  })
-  .catch(function(error){
-    console.log(error);
-  })
+    object.innerHTML = output;
+  }
+  HTTPRequest.send();
 }

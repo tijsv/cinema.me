@@ -1,34 +1,32 @@
 <%- contentFor('main') %>
 <div class="content no-margin">
-  <!-- <div class="content-title">
-    <h2>This is only visible when you're logged in (helps the dev greatly)</h2>
-  </div> -->
 
-  <div class="content-title"><h3>Your movies</h3></div>
+  <div class="searchDiv">
+    <form id="searchForm" autocomplete="off">
+      <input type="text" id="searchText" placeholder="Click here to search for movies or series ..." />
+      <!-- <i class="fa fa-search"></i> -->
+    </form>
+  </div>
+
+  <div id="movies">
+  </div>
+
   <div id="movies-user">
-
+    <div class="title-movies">
+      <h5>Your movies</h5>
+    </div>
     <% for (i=0;i<user.cinema.movies.length;i++) { %>
     <div class="movie" data-id="<%-user.cinema.movies[i]%>"></div>
     <% } %>
   </div>
 
-  <div class="content-title"><h3>Your series</h3></div>
   <div id="series-user">
+    <div class="title-series">
+      <h5>Your series</h5>
+    </div>
     <% for (i=0;i<user.cinema.series.length;i++) { %>
     <div class="series" data-id="<%-user.cinema.series[i]%>"></div>
     <% } %>
-  </div>
-
-  <div class='content-inner'>
-    <div class="searchDiv">
-      <h1>Search for movies or series</h3>
-      <form id="searchForm">
-        <input type="text" id="searchText" placeholder="Search here..." />
-      </form>
-    </div>
-  </div>
-
-  <div id="movies">
   </div>
 
 </div>
