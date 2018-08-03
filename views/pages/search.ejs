@@ -1,0 +1,22 @@
+<%- contentFor('main') %>
+<div class="content no-margin">
+
+  <div class="searchDiv">
+    <form method="POST" action="/cinema/search" id="searchForm" autocomplete="off" >
+      <input type="text" id="searchText" name="search" placeholder="Click here to search for movies or series ..." />
+    </form>
+  </div>
+
+  <div id="movies">
+    <% for (i=0;i<resultArray.length;i++) { %>
+    <div class="movie-item" onclick="resultSelected('<%-resultArray[i][0]%>','<%-resultArray[i][1]%>')">
+      <img src="<%-resultArray[i][2]%>">
+      <div class="text">
+        <h5><%-resultArray[i][3]%></h5>
+        <p class="type"><%-resultArray[i][1]%></a>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+</div>

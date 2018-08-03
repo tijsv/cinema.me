@@ -387,12 +387,6 @@ header {
   #movies-user .title-series, #series-user .title-series {
     background-color: #25232f; }
 
-#movies-user {
-  background-color: rgba(255, 147, 0, 0.05); }
-
-#series-user {
-  background-color: rgba(137, 178, 186, 0.05); }
-
 #footer {
   color: #f9f9fa;
   text-align: center;

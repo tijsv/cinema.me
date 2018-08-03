@@ -2,36 +2,43 @@
 <div class="content no-margin">
 
   <div class="searchDiv">
-    <form id="searchForm" autocomplete="off">
-      <input type="text" id="searchText" placeholder="Click here to search for movies or series ..." />
-      <!-- <i class="fa fa-search"></i> -->
+    <form method="POST" action="/cinema/search" id="searchForm" autocomplete="off" >
+      <input type="text" id="searchText" name="search" placeholder="Click here to search for movies or series ..." />
     </form>
-  </div>
-
-  <div id="movies">
   </div>
 
   <div id="movies-user">
     <div class="title-movies">
       <h5>Your movies</h5>
     </div>
-    <% for (i=0;i<user.cinema.movies.length;i++) { %>
-    <div class="movie" data-id="<%-user.cinema.movies[i]%>"></div>
-    <% } %>
+    <% if (movieArray.length != 0) { %>
+    <% for (i=0;i<movieArray.length;i++) { %>
+    <div class="movie" data-id="<%-movieArray[i][0]%>">
+      <div class="list-item" onclick="resultSelected('<%-movieArray[i][0]%>','<%-movieArray[i][1]%>')">
+        <img src="<%-movieArray[i][2]%>">
+        <div class="text">
+          <h5><%-movieArray[i][3]%></h5>
+        </div>
+      </div>
+    </div>
+    <% } } %>
   </div>
 
   <div id="series-user">
     <div class="title-series">
       <h5>Your series</h5>
     </div>
-    <% for (i=0;i<user.cinema.series.length;i++) { %>
-    <div class="series" data-id="<%-user.cinema.series[i]%>"></div>
-    <% } %>
+    <% if (seriesArray.length != 0) { %>
+    <% for (i=0;i<seriesArray.length;i++) { %>
+    <div class="series" data-id="<%-seriesArray[i][0]%>">
+      <div class="list-item" onclick="resultSelected('<%-seriesArray[i][0]%>','<%-seriesArray[i][1]%>')">
+        <img src="<%-seriesArray[i][2]%>">
+        <div class="text">
+          <h5><%-seriesArray[i][3]%></h5>
+        </div>
+      </div>
+    </div>
+    <% } } %>
   </div>
 
 </div>
-
-<!--
-Waarom zijn deze nodig?
-</div>
-</div> -->
