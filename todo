@@ -2,6 +2,8 @@ done:
 
   delete movies/series from list
 
+  get all API request server side (so api key is safe)
+
 
 
 
@@ -12,9 +14,9 @@ todo:
 
   trending movies/series
 
-  get all API request server side (so api key is safe)
-
   way to sort movies in list (genre, date, ...)
+
+  show which movies are not out yet
 
   explore tmdb api for possibilities
 

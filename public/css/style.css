@@ -294,7 +294,8 @@ header {
         cursor: pointer;
         transition: 0.15s all ease;
         margin-bottom: 20px;
-        margin-right: 20px; }
+        margin-right: 20px;
+        float: left; }
       #movie .my-screen .text .submit:hover {
         background-color: #ff9300;
         transition: 0.15s all ease; }
@@ -309,10 +310,31 @@ header {
         cursor: pointer;
         transition: 0.15s all ease;
         margin-bottom: 20px;
-        margin-right: 20px; }
+        margin-right: 20px;
+        float: left; }
       #movie .my-screen .text .remove:hover {
         background-color: #ff9300;
         transition: 0.15s all ease; }
+      #movie .my-screen .text .trailer {
+        color: #25232f;
+        padding: 12px;
+        background-color: #f9f9fa;
+        border-radius: 2px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: 0.15s all ease;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        float: left; }
+      #movie .my-screen .text .trailer:hover {
+        background-color: #ff9300;
+        color: #f9f9fa;
+        transition: 0.15s all ease; }
+      #movie .my-screen .text form {
+        float: left;
+        width: auto; }
   #movie .background {
     position: absolute;
     top: 0;

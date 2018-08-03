@@ -18,6 +18,9 @@
         <p class="genre"><%-genreString%></p>
         <p class="plot"><%-plot%></p>
         <p class="released"><span>Released:</span> <%-released%></p>
+        <% if(type==="movie") { %>
+        <a class="trailer" href="<%-trailer%>" target="_blank">Watch trailer</a>
+        <% } %>
         <%
         var movieBool = false;
         var seriesBool = false;

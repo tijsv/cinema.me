@@ -109,13 +109,14 @@ router.get('/screen/:typeid', function(request, response) {
     let type = request.params.typeid.replace(/[0-9]/g, '');
     let url = 'https://api.themoviedb.org/3/';
     if(type=="movie"){
-      url += 'movie/' + Id + '?api_key=' + api_key + '&language=en-US';
+      url += 'movie/' + Id + '?api_key=' + api_key + '&language=en-US&append_to_response=videos';
     } else if(type=="tv"){
       url += 'tv/' + Id + '?api_key=' + api_key + '&language=en-US';
     }
     axios.get(url)
     .then(resp => {
       let result = resp.data;
+      // console.log(result);
       var poster = 'https://image.tmdb.org/t/p/w500';
       var title = "";
       var released = "";
@@ -140,6 +141,24 @@ router.get('/screen/:typeid', function(request, response) {
         }
       }
       var plot = result.overview;
+      var trailer = "https://www.youtube.com/watch?v=";
+      if(type==="movie"){
+        var notrailer = true;
+        for(t=0;t<result.videos.results.length;t++){
+          if(result.videos.results[t].type==="Trailer"){
+            trailer += result.videos.results[t].key;
+            notrailer = false;
+            break;
+          }
+        }
+        if(notrailer){
+          if(result.videos.results.length>=1){
+            trailer += result.videos.results[0].key;
+          } else {
+            trailer = "https://www.youtube.com/watch?v=tfMTHIwTUXA";
+          }
+        }
+      }
       response.render('./pages/screen.ejs', {
         title: title,
         poster: poster,
@@ -147,7 +166,8 @@ router.get('/screen/:typeid', function(request, response) {
         released: released,
         type: type,
         plot: plot,
-        Id: Id
+        Id: Id,
+        trailer: trailer
       });
     })
     .catch(error => {

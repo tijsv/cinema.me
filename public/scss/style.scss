@@ -359,6 +359,7 @@ header {
         transition: 0.15s all ease;
         margin-bottom: 20px;
         margin-right: 20px;
+        float: left;
       }
       .submit:hover {
         background-color: $primaryColor;
@@ -376,10 +377,34 @@ header {
         transition: 0.15s all ease;
         margin-bottom: 20px;
         margin-right: 20px;
+        float: left;
       }
       .remove:hover {
         background-color: $primaryColor;
         transition: 0.15s all ease;
+      }
+      .trailer {
+        color: $darkColor;
+        padding: 12px;
+        background-color: $lightColor;
+        border-radius: 2px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor:pointer;
+        transition: 0.15s all ease;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        float: left;
+      }
+      .trailer:hover {
+        background-color: $primaryColor;
+        color: $lightColor;
+        transition: 0.15s all ease;
+      }
+      form {
+        float: left;
+        width: auto;
       }
     }
   }
