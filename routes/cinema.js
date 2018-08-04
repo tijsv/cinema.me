@@ -250,11 +250,19 @@ router.post('/screen/:typeid/delete', function(request, response){
           rating.total_score = rating.total_score/(rating.scores.length-1);
           rating.scores[i].remove();
           let query = {_id:rating._id};
-          Rating.update(query, rating, function(error){
-            if(error){
-              console.log(error);
-            }
-          });
+          if(rating.scores.length==0){
+            Rating.findByIdAndRemove(query, function(error){
+              if(error){
+                console.log(error);
+              }
+            });
+          } else {
+            Rating.update(query, rating, function(error){
+              if(error){
+                console.log(error);
+              }
+            });
+          }
         }
       }
     }
