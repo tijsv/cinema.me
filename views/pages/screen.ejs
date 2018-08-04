@@ -12,6 +12,14 @@
 
   <div id="movie">
     <div class="my-screen">
+      <div class="scores">
+        <p class="total-score">
+          <%-total_score%>
+        </p>
+        <p class="user-rating">
+          <%-user_rating%>
+        </p>
+      </div>
       <img src="<%-poster%>">
       <div class="text">
         <p class="title"><%-title%></p>
@@ -28,6 +36,7 @@
         <% for (i=0;i<user.cinema.movies.length;i++) { %>
         <% if (user.cinema.movies[i]===Id) {
         movieBool = true; %>
+        <a class="rate-button">Rate</a>
         <form method="POST" action="/cinema/screen/<%-type%><%-Id%>/delete">
           <input type="hidden" name="Id" value="<%-Id%>"/>
           <input type="hidden" name="type" value="<%-type%>"/>
@@ -38,6 +47,7 @@
         <% for (i=0;i<user.cinema.series.length;i++) { %>
         <% if (user.cinema.series[i]===Id) {
         seriesBool = true; %>
+        <a class="rate-button">Rate</a>
         <form method="POST" action="/cinema/screen/<%-type%><%-Id%>/delete">
           <input type="hidden" name="Id" value="<%-Id%>"/>
           <input type="hidden" name="type" value="<%-type%>"/>
@@ -51,6 +61,16 @@
           <input class="submit" type="submit" value="Add to list"/>
         </form>
         <% } %>
+      </div>
+      <div id="rating">
+        <div class="rating-form">
+          <form id="rating-form" method="POST" action="/cinema/screen/<%-type%><%-Id%>/rating">
+            <input type="hidden" name="Id" value="<%-Id%>"/>
+            <input type="hidden" name="type" value="<%-type%>"/>
+            <input type="number" name="score" step=".1"/>
+            <input class="submit" type="submit" value="Rate this movie"/>
+          </form>
+        </div>
       </div>
     </div>
     <img class="background" src="<%-poster%>">

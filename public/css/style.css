@@ -114,8 +114,7 @@ header {
   .content p {
     margin-bottom: 40px;
     font-size: 0.9em;
-    font-weight: 400;
-    opacity: 0.8; }
+    font-weight: 400; }
   .content form {
     width: 100%; }
     .content form .form-item {
@@ -258,6 +257,35 @@ header {
     justify-content: space-between;
     align-items: center;
     overflow: auto; }
+    #movie .my-screen .total-score {
+      color: #f9f9fa;
+      padding: 12px;
+      background-color: rgba(255, 147, 0, 0.3);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin-bottom: 0;
+      text-align: center; }
+      #movie .my-screen .total-score span {
+        font-weight: 500;
+        font-size: 3em; }
+    #movie .my-screen .user-rating {
+      color: #f9f9fa;
+      padding: 12px;
+      background-color: rgba(137, 178, 186, 0.3);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      position: absolute;
+      top: 0;
+      right: 0;
+      text-align: center; }
+      #movie .my-screen .user-rating span {
+        font-weight: 500;
+        font-size: 3em; }
     #movie .my-screen img {
       max-height: 100%;
       max-width: 40%;
@@ -279,7 +307,8 @@ header {
         text-transform: uppercase;
         color: #ff9300; }
       #movie .my-screen .text .plot {
-        line-height: 1.6em; }
+        line-height: 1.6em;
+        opacity: 0.9; }
       #movie .my-screen .text span {
         text-transform: uppercase;
         opacity: 0.5; }
@@ -309,9 +338,7 @@ header {
         letter-spacing: 0.05em;
         cursor: pointer;
         transition: 0.15s all ease;
-        margin-bottom: 20px;
-        margin-right: 20px;
-        float: left; }
+        margin-bottom: 20px; }
       #movie .my-screen .text .remove:hover {
         background-color: #ff9300;
         transition: 0.15s all ease; }
@@ -333,8 +360,81 @@ header {
         color: #f9f9fa;
         transition: 0.15s all ease; }
       #movie .my-screen .text form {
-        float: left;
+        float: right;
         width: auto; }
+    #movie .my-screen #rating {
+      display: none;
+      z-index: 1;
+      background-color: rgba(37, 35, 47, 0.9);
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+      #movie .my-screen #rating .rating-integer {
+        width: 10%;
+        height: 100%;
+        transition: 0.4s all ease;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden; }
+        #movie .my-screen #rating .rating-integer p {
+          position: absolute;
+          text-align: center;
+          width: 100%;
+          overflow: hidden;
+          font-size: 40em;
+          opacity: 0.05;
+          font-weight: 700;
+          color: #f9f9fa; }
+        #movie .my-screen #rating .rating-integer .rating-decimal {
+          z-index: 2;
+          width: 10%;
+          height: 100%;
+          transition: 0.4s all ease;
+          display: flex;
+          align-items: center;
+          position: relative;
+          cursor: pointer; }
+          #movie .my-screen #rating .rating-integer .rating-decimal p {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            font-size: 5em;
+            opacity: 0;
+            font-weight: 700;
+            transform: scale(0.5);
+            transition: 0.4s all ease;
+            color: #f9f9fa; }
+        #movie .my-screen #rating .rating-integer .rating-decimal:hover {
+          width: 60%;
+          background-color: rgba(249, 249, 250, 0.5);
+          transition: 0.4s all ease; }
+          #movie .my-screen #rating .rating-integer .rating-decimal:hover p {
+            opacity: 1;
+            transform: scale(1);
+            transition: 0.4s all ease; }
+      #movie .my-screen #rating .rating-integer:hover {
+        width: 60%;
+        background-color: rgba(137, 178, 186, 0.2);
+        transition: 0.4s all ease; }
+      #movie .my-screen #rating .rating-form {
+        display: none; }
+    #movie .my-screen .rate-button {
+      color: #f9f9fa;
+      padding: 12px;
+      background-color: #89b2ba;
+      border-radius: 2px;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: 0.15s all ease;
+      margin-bottom: 20px;
+      margin-right: 20px;
+      float: left; }
+    #movie .my-screen .rate-button:hover {
+      background-color: #ff9300;
+      transition: 0.15s all ease; }
   #movie .background {
     position: absolute;
     top: 0;
@@ -363,7 +463,6 @@ header {
       position: absolute;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       transition: 0.4s all ease; }
     #movies-user .movie .text, #movies-user .series .text, #series-user .movie .text, #series-user .series .text {
       position: absolute;

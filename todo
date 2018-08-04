@@ -23,3 +23,36 @@ todo:
   design (icons, colors, ...)
 
   way to show upcoming seasons of series in list
+
+  email notifications
+
+  email account details??
+
+  email verification
+
+  own rating
+
+
+
+
+
+ratings: (if no users rated movie, object needs to me deleted)
+      _id: ...
+      movie_or_series: type
+      id: id
+      users_that_rated: {
+        _id
+        rating: 9
+      }
+      rating_score: sum_of_all_ratings/number_of_users_that_rated
+
+
+users:
+      _id:
+      cinema: {
+        movies: [id id id],
+        series: [id id]
+      }
+      email:
+      username:
+      password:

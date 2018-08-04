@@ -3,9 +3,9 @@ const router = express.Router();
 const axios = require('axios');
 const config = require('../config/tmdbapikey');
 const api_key = process.env.TMDB_API_KEY || config.tmdbapikey;
-
 // user model
 let User = require('../models/user');
+let Rating = require('../models/rating.js');
 
 router.get('/', function(request, response) {
   if(!request.user) {
@@ -17,7 +17,7 @@ router.get('/', function(request, response) {
     var movieCounter = 0;
     let movieIdArray = request.user.cinema.movies;
     if(movieIdArray.length===0) {
-      movieIdArray.push(17473);
+      movieIdArray.push(17473); // the room
     }
     for(i=0;i<movieIdArray.length;i++) {
       getResultById(movieIdArray[i], "movie", function(returnValue) {
@@ -55,12 +55,10 @@ router.get('/search/:string', function(request, response){
     response.redirect('/');
   }
   const searchText = request.params.string;
-  // console.log(searchText);
   var url = 'https://api.themoviedb.org/3/search/multi?api_key=' + api_key + '&language=en-US&query=' + searchText + '&page=1&include_adult=false&append_to_response=external_ids';
   axios.get(url)
   .then(resp => {
     let results = resp.data.results;
-    // console.log(results);
     let resultArray = [];
     for(i=0;i<results.length;i++){
       let result = results[i];
@@ -107,6 +105,19 @@ router.get('/screen/:typeid', function(request, response) {
   } else {
     let Id = request.params.typeid.match(/\d+/g).map(Number)[0].toString();
     let type = request.params.typeid.replace(/[0-9]/g, '');
+    let total_score = "No score yet";
+    let user_rating = "Not rated yet";
+    Rating.findOne({type_id: request.params.typeid}, function(error, rating) {
+      if(error) throw error
+      if(rating) {
+        for(i=0;i<rating.scores.length;i++) {
+          if(rating.scores[i].user_id == request.user._id) {
+            user_rating = 'Your rating:<br><span>' + rating.scores[i].score + '</span>';
+          }
+        }
+        total_score = 'Total score:<br><span>' + rating.total_score + '</span>';
+      }
+    })
     let url = 'https://api.themoviedb.org/3/';
     if(type=="movie"){
       url += 'movie/' + Id + '?api_key=' + api_key + '&language=en-US&append_to_response=videos';
@@ -116,7 +127,6 @@ router.get('/screen/:typeid', function(request, response) {
     axios.get(url)
     .then(resp => {
       let result = resp.data;
-      // console.log(result);
       var poster = 'https://image.tmdb.org/t/p/w500';
       var title = "";
       var released = "";
@@ -167,7 +177,9 @@ router.get('/screen/:typeid', function(request, response) {
         type: type,
         plot: plot,
         Id: Id,
-        trailer: trailer
+        trailer: trailer,
+        total_score: total_score,
+        user_rating: user_rating
       });
     })
     .catch(error => {
@@ -222,13 +234,32 @@ router.post('/screen/:typeid/delete', function(request, response){
   let Id = request.body.Id;
   let type = request.body.type;
   let user = request.user;
+  let type_id = type+Id;
   if(type==="tv"){
     user.cinema.series.remove(Id);
   } else if(type==="movie"){
     user.cinema.movies.remove(Id);
   }
+  Rating.findOne({type_id: type_id}, function(error, rating) {
+    if(error) throw error
+    if(rating) {
+      for(i=0;i<rating.scores.length;i++) {
+        if(rating.scores[i].user_id == request.user._id) {
+          rating.total_score = rating.total_score*rating.scores.length;
+          rating.total_score = rating.total_score - parseFloat(rating.scores[i].score);
+          rating.total_score = rating.total_score/(rating.scores.length-1);
+          rating.scores[i].remove();
+          let query = {_id:rating._id};
+          Rating.update(query, rating, function(error){
+            if(error){
+              console.log(error);
+            }
+          });
+        }
+      }
+    }
+  })
   let query = {_id:request.user._id};
-  // console.log('start updating user ...')
   User.update(query, user, function(error){
     if(error){
       console.log(error);
@@ -237,11 +268,87 @@ router.post('/screen/:typeid/delete', function(request, response){
       response.redirect('/cinema');
     }
   });
-  // console.log('user updated');
+})
+
+router.post('/screen/:typeid/rating', function(request, response){
+  if(!request.user._id){
+    response.status(500).send();
+  }
+  const Id = request.body.Id;
+  const type = request.body.type;
+  const score = request.body.score;
+  const type_id = type + Id;
+  Rating.findOne({type_id: type_id}, function(error, rating) {
+    if(error) throw error
+    if(rating) {
+      console.log('already a rating for this item');
+      var isRatedByUser = false;
+      for(i=0;i<rating.scores.length;i++) {
+        if(rating.scores[i].user_id == request.user._id) {
+          console.log('this user already rated this item');
+          rating.total_score = rating.total_score*rating.scores.length;
+          rating.total_score = rating.total_score - parseFloat(rating.scores[i].score);
+          rating.scores[i].score = score;
+          rating.total_score = parseFloat(rating.total_score)+parseFloat(score);
+          rating.total_score = rating.total_score/rating.scores.length;
+          let query = {_id:rating._id};
+          Rating.update(query, rating, function(error){
+            if(error){
+              console.log(error);
+            } else {
+              request.flash('success', 'This was already rated by you. We changed your score regardless.');
+              response.redirect('/cinema/screen/'+type_id);
+            }
+          });
+          isRatedByUser = true;
+        }
+      }
+      if(!isRatedByUser){
+        let newRating = rating;
+        newRating.scores.push({
+          user_id: request.user._id,
+          score: score,
+        })
+        newRating.total_score = newRating.total_score*(newRating.scores.length-1);
+        newRating.total_score = parseFloat(newRating.total_score)+parseFloat(score);
+        newRating.total_score = newRating.total_score/newRating.scores.length;
+        newRating.save(function(error){
+          if(error){
+            console.log(error);
+            return;
+          } else {
+            request.flash('success', 'Thanks for rating this item');
+            response.redirect('/cinema/screen/'+type_id);
+          }
+        })
+      }
+    } else {
+      console.log('no rating yet for this item');
+      let newRating = new Rating({
+        type_id:type_id,
+        scores:[
+          {
+            user_id: request.user._id,
+            score: score
+          }
+        ],
+        total_score: score
+      });
+      newRating.save(function(error){
+        if(error){
+          console.log(error);
+          return;
+        } else {
+          request.flash('success', 'Thank you for rating this item');
+          response.redirect('/cinema/screen/'+type_id);
+        }
+      })
+    }
+  })
+
 })
 
 function getResultById(Id, type, callback) {
-  // console.log('getResultById started ...');
   let url = 'https://api.themoviedb.org/3/';
   if(type=="movie"){
     url += 'movie/' + Id + '?api_key=' + api_key + '&language=en-US';
@@ -251,7 +358,8 @@ function getResultById(Id, type, callback) {
   axios.get(url)
   .then(resp => {
     let result = resp.data;
-    var poster = 'https://image.tmdb.org/t/p/w500';
+    // console.log(result);
+    var poster = 'https://image.tmdb.org/t/p/w300';
     var title = "";
     if(result.poster_path) {
       poster += result.poster_path;
