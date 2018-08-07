@@ -161,7 +161,7 @@ header {
     width: 100%;
     position: relative; }
     .searchDiv #searchForm input {
-      padding: 15px 0;
+      padding: 1rem 0;
       width: 100%;
       background-color: rgba(249, 249, 250, 0.1);
       color: #25232f;
@@ -171,25 +171,23 @@ header {
       text-align: center; }
     .searchDiv #searchForm input:focus {
       background-color: #f9f9fa;
-      padding: 20px 0;
+      padding: 1.5rem 0;
       transition: 0.2s all ease;
       outline: none; }
     .searchDiv #searchForm input:hover {
       background-color: #f9f9fa;
-      padding: 20px 0;
+      padding: 1.5rem 0;
       transition: 0.2s all ease;
       z-index: 1; }
     .searchDiv #searchForm input:hover::-webkit-input-placeholder {
       opacity: 1;
       color: #25232f;
-      margin-left: 0px;
       transition: 0.2s all ease; }
     .searchDiv #searchForm input:focus::-webkit-input-placeholder {
       opacity: 0; }
     .searchDiv #searchForm ::placeholder {
-      opacity: 0.2;
-      margin-left: 20px;
-      font-weight: 400;
+      opacity: 0.4;
+      font-weight: 300;
       color: #f9f9fa;
       text-align: center;
       transition: 0.2s all ease; }
@@ -512,4 +510,4 @@ header {
   color: #f9f9fa;
   text-align: center;
   background-color: rgba(249, 249, 250, 0.05);
-  padding: 20px; }
+  padding: 1.5rem; }

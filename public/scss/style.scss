@@ -199,7 +199,7 @@ header {
     width: 100%;
     position: relative;
     input {
-      padding: 15px 0;
+      padding: 1rem 0;
       width: 100%;
       background-color: rgba(249,249,250,0.1);
       color: $darkColor;
@@ -210,29 +210,27 @@ header {
     }
     input:focus {
       background-color: $lightColor;
-      padding: 20px 0;
+      padding: 1.5rem 0;
       transition: 0.2s all ease;
       outline: none;
     }
     input:hover, {
       background-color: $lightColor;
-      padding: 20px 0;
+      padding: 1.5rem 0;
       transition: 0.2s all ease;
       z-index: 1;
     }
     input:hover::-webkit-input-placeholder {
       opacity: 1;
       color: $darkColor;
-      margin-left: 0px;
       transition: 0.2s all ease;
     }
     input:focus::-webkit-input-placeholder {
       opacity: 0;
     }
     ::placeholder {
-      opacity: 0.2;
-      margin-left:20px;
-      font-weight: 400;
+      opacity: 0.4;
+      font-weight: 300;
       color: $lightColor;
       text-align: center;
       transition: 0.2s all ease;
@@ -617,5 +615,5 @@ header {
   color: $lightColor;
   text-align: center;
   background-color:rgba(249,249,250,0.05);
-  padding: 20px;
+  padding: 1.5rem;
 }

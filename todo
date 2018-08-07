@@ -50,9 +50,27 @@ ratings: (if no users rated movie, object needs to me deleted)
 users:
       _id:
       cinema: {
-        movies: [id id id],
-        series: [id id]
+        movies: [{
+
+        }],
+        series: [{
+
+        }]
       }
       email:
       username:
       password:
+
+movies:
+  _id
+  id
+  title
+  url
+  ...
+
+series:
+  _id
+  id
+  title
+  url
+  ...
