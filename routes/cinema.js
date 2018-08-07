@@ -18,13 +18,84 @@ router.get('/', function(request, response) {
     let movieCounter = 0;
     let movieIdArray = request.user.cinema.movies;
     if(movieIdArray.length===0) {
-      movieIdArray.push(17473); // The Room
+      let thisId = "17473" // The Room
+      movieIdArray.push(thisId);
+      Movie.findOne({id:thisId}, function(error, movie) {
+        if(error) { throw error }
+        if(!movie) {
+          let url = 'https://api.themoviedb.org/3/';
+          url += 'movie/' + thisId + '?api_key=' + api_key + '&language=en-US&append_to_response=videos,external_ids';
+          axios.get(url)
+          .then(resp => {
+            let result = resp.data;
+            var movieInfo = getMovie(result);
+            let newMovie = new Movie({
+              id:movieInfo[0],
+              scores:[],
+              total_score:null,
+              title:movieInfo[2],
+              poster:movieInfo[3],
+              backdrop:movieInfo[4],
+              genres:movieInfo[5],
+              release_date:movieInfo[7],
+              status:movieInfo[8],
+              imdb_id:movieInfo[9]
+            });
+            newMovie.save(function(error){
+              if(error) { console.log(error); return;
+              } else {
+                console.log('The room added because the database is empty.');
+              }
+            })
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        }
+      })
     }
     let seriesArray = [];
     let seriesCounter = 0;
     let seriesIdArray = request.user.cinema.series;
     if(seriesIdArray.length===0) {
-      seriesIdArray.push(1892); // The Fresh Prince of Bel-Air
+      let thisId = "1892" // The Fresh Prince of Bel-Air
+      seriesIdArray.push(thisId);
+      Series.findOne({id:thisId}, function(error, series) {
+        if(error) { throw error }
+        if(!series) {
+          let url = 'https://api.themoviedb.org/3/';
+          url += 'tv/' + thisId + '?api_key=' + api_key + '&language=en-US&append_to_response=videos,external_ids';
+          axios.get(url)
+          .then(resp => {
+            let result = resp.data;
+            var seriesInfo = getSeries(result);
+            let newSeries = new Series({
+              id:seriesInfo[0],
+              scores:[],
+              total_score:null,
+              title:seriesInfo[2],
+              poster: seriesInfo[3],
+              backdrop: seriesInfo[4],
+              genres: seriesInfo[5],
+              genreString: seriesInfo[6],
+              number_of_seasons: seriesInfo[7],
+              first_air_date: seriesInfo[8],
+              next_episode_to_air: seriesInfo[9],
+              status: seriesInfo[10],
+              imdb_id: seriesInfo[11]
+            });
+            newSeries.save(function(error){
+              if(error) { console.log(error); return;
+              } else {
+                console.log('The Fresh Prince of Bel-Air added because the database is empty.');
+              }
+            })
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        }
+      })
     }
     for(i=0;i<movieIdArray.length;i++) {
       Movie.findOne({id:movieIdArray[i]}, function(error, movie) {
@@ -127,7 +198,7 @@ router.get('/screen/:typeid', function(request, response) {
     let user_rating = "Not rated yet";
     let url = 'https://api.themoviedb.org/3/';
     if(type == "movie") {
-      url += 'movie/' + id + '?api_key=' + api_key + '&language=en-US&append_to_response=videos';
+      url += 'movie/' + id + '?api_key=' + api_key + '&language=en-US&append_to_response=videos,external_ids';
       Movie.findOne({id: id}, function(error, movie) {
         if(error) throw error
         if(movie) {
