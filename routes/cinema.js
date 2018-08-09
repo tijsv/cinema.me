@@ -494,6 +494,46 @@ router.post('/screen/:typeid/delete', function(request, response){
   });
 })
 
+router.get('/movies', function(request, response) {
+  if(!request.user) {
+    console.log('You have to log in first');
+    request.flash('error', 'You have to log in first');
+    response.redirect('/');
+  } else {
+    let movieIdArray = request.user.cinema.movies;
+    let movieCounter = 0;
+    let movieArray = [];
+    let randomBackdrop = getRandomBackdrop();
+    if(movieIdArray.length===0) {
+      response.render('./pages/movies.ejs', {
+        movieArray: movieArray,
+        randomBackdrop: randomBackdrop
+      })
+    } else {
+      for(i=0;i<movieIdArray.length;i++) {
+        Movie.findOne({id: movieIdArray[i]}, function(error, movie) {
+          if(error) { throw error; }
+          if(movie) {
+            movieArray.push(movie);
+            movieCounter++;
+            if(movieCounter===movieIdArray.length) {
+              console.log("rendering...");
+              response.render('./pages/movies.ejs', {
+                movieArray: movieArray,
+                randomBackdrop: randomBackdrop
+              })
+            }
+          } else if(!movie) {
+            console.log('This movie is not in our database? That\'s impossible');
+            request.flash('error', 'This movie is not in our database? That\'s impossible!');
+            response.redirect('/cinema');
+          }
+        })
+      }
+    }
+  }
+})
+
 router.post('/screen/:typeid/rating', function(request, response){
   if(!request.user._id){
     response.status(500).send();
