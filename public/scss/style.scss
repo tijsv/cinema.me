@@ -1,76 +1,40 @@
 $primaryColor: #ff9300; // rgb(255,147,0)
 $secondaryColor: #cc433f; // rgb(204,67,63)
 $contrastColor: #89b2ba; // rgb(137,178,186)
-$darkColor: #25232f; // rgb(37,35,47)
+$darkColor: rgba(20,20,20,1); // rgb(37,35,47)
 $lightColor: #f9f9fa; // rgb(249,249,250)
 
-body, p, a, h1, h2, h3, h4, h5, ul, li {
+html, body, p, a, h1, h2, h3, h4, h5, h6, ul, li {
   padding: 0;
   margin: 0;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 input, button, submit { border:none; }
 
+html, body {
+  height: 100%;
+}
+
 body {
-  background-color: $darkColor;
+  background-color: $lightColor;
   color: $lightColor;
 }
 
-header {
-  background-color:rgba(249,249,250,0.05);
-  list-style-type: none;
-  text-align: right;
-  padding: 25px;
-  h1 {
-    text-align: left;
-    display: inline-block;
-    float: left;
-    line-height: 0px;
-    padding: 10px;
-    font-weight: 700;
-    transition: 0.15s all ease;
-    cursor: pointer;
-    color: $lightColor;
-  }
-  h1:hover{
-    transition: 0.15s all ease;
-    color: $primaryColor;
-  }
-  p {
-    color: $lightColor;
-    display: inline-block;
-    padding: 0 10px 0 20px;
-    font-size: 0.8em;
-    span {
-      font-weight: 700;
-    }
-  }
-  a {
-    color: $lightColor;
-    padding: 10px;
-    background-color: $contrastColor;
-    border-radius: 2px;
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    margin-left: 15px;
-    letter-spacing: 0.05em;
-    cursor:pointer;
-    transition: 0.15s all ease;
-  }
-  a:hover {
-    background-color: $primaryColor;
-    transition: 0.15s all ease;
-  }
-  .menu {
-    background-color: $secondaryColor;
-  }
-}
-
 #messages {
+  position: fixed;
+  bottom: -60px;
+  width: 100%;
+  height: 60px;
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  animation-name: hide;
+  animation-duration: 4s;
   ul {
     text-decoration: none;
     list-style-type: none;
@@ -78,90 +42,176 @@ header {
   .error {
     color: #a94442;
     background-color: #f2dede;
-    border-color: #ebccd1;
-    position: relative;
-    padding: 0.75rem 1.25rem;
-    margin: 0 auto 0 auto;
-    border: 1px solid transparent;
+    padding: 40px;
+    width: 100%;
   }
   .success {
     color: #155724;
     background-color: #d4edda;
-    border-color: #c3e6cb;
-    position: relative;
-    padding: 0.75rem 1.25rem;
-    margin: 0 auto 0 auto;
-    border: 1px solid transparent;
+    padding: 40px;
+    width: 100%;
   }
 }
 
-.no-margin {
-  margin: 0 !important;
+@keyframes hide {
+  0%    {bottom: -60px;}
+  10%   {bottom: 0;}
+  90%   {bottom: 0;}
+  100%  {bottom: -60px;}
 }
 
-.content {
-  margin: 80px auto;
-  color: white;
-  .content-inner {
-    width: 50%;
-    margin: 80px auto;
-  }
-  .content-form {
-    width: 30%;
-    margin: 0 auto;
-  }
-  .content-title {
-    padding: 40px 0 20px 0;
-    h2 {
-      width: 50%;
-      margin: 0 auto;
-      text-align: center;
-    }
-    h3 {
-      font-size: 1.5em;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: $contrastColor;
-      width: 90%;
-      margin: 0 auto;
-    }
-  }
-  h1 {
-    margin-bottom: 40px;
-    font-size: 2em;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  h2 {
-    margin-bottom: 20px;
+#header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  z-index: 1;
+  overflow: hidden;
+  #header-logo {
+    color: lighten($darkColor, 10%);
+    padding: 30px;
     font-size: 1.4em;
-    font-weight: 500;
-    color: $secondaryColor;
+    font-weight: 700;
+    z-index: 2;
+    cursor: pointer;
+  }
+  a {
+    color: $lightColor;
+    font-size: 1em;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 15px 30px;
+    background-color: transparentize($darkColor, 0.3);
+    cursor: pointer;
+    margin-left: -4px;
+    border-radius: 2px;
+    transition: 0.2s all ease;
+  }
+  a:hover {
+    color: $darkColor;
+    background-color: transparentize($lightColor, 0.3);
+    transition: 0.2s all ease;
   }
   p {
-    margin-bottom: 40px;
-    font-size: 0.9em;
+    margin-right: 20px;
+    padding: 20px 0;
+    color: $darkColor;
     font-weight: 400;
+    display: inline-block;
+    font-size: 0.9em;
+    span {
+      font-weight: 700;
+    }
   }
-  form {
+  .links-center {
+    position: absolute;
     width: 100%;
+    text-align: center;
+    a {
+      margin: 0 5px;
+    }
+  }
+  .links-right {
+    z-index: 2;
+  }
+}
+
+#home {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(to left top, rgba(249,249,250,0) 0%, rgba(249,249,250,1) 100%);
+  .home-content {
+    width: 70%;
+    position: absolute;
+    top: 25%;
+    left: 15%;
+    display: flex;
+    flex-direction: column;
+    h1 {
+      font-size: 5em;
+      font-weight: 700;
+      color: lighten($darkColor, 10%);
+      margin-bottom: 20px;
+      span {
+        color: $darkColor;
+        font-weight: 900;
+      }
+    }
+    h2 {
+      font-size: 1.2em;
+      font-weight: 400;
+      color: lighten($darkColor, 20%);
+      margin-bottom: 60px;
+      line-height: 1.6em;
+      span {
+        color: lighten($darkColor, 10%);
+        font-weight: 900;
+      }
+    }
+    .buttons {
+      a {
+        color: $lightColor;
+        font-size: 1em;
+        font-weight: 300;
+        text-transform: uppercase;
+        padding: 15px 30px;
+        background-color: transparentize($darkColor, 0.3);
+        margin: 0 20px 0 0;
+        cursor: pointer;
+        border-radius: 2px;
+        transition: 0.2s all ease;
+      }
+      a:hover {
+        color: $darkColor;
+        background-color: transparentize($lightColor, 0.3);
+        transition: 0.2s all ease;
+      }
+    }
+  }
+  #home-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
+}
+
+#login, #register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(to left top, rgba(249,249,250,0) 0%, rgba(249,249,250,1) 100%);
+  form {
+    width: 30%;
     .form-item {
       padding: 10px 0;
       label {
         font-size: 1em;
-        font-weight: 300;
-        letter-spacing: 0.05em;
+        font-weight: 500;
         text-transform: uppercase;
+        color: lighten($darkColor, 10%);
       }
       input {
-        padding: 10px;
+        font-family: 'Roboto', sans-serif;
+        padding: 15px;
         margin: 10px 0;
         width: 100%;
         font-size: 1em;
+        font-weight: 500;
         box-sizing : border-box;
-        background-color:rgba(249,249,250,0.05);
+        background-color: transparentize($darkColor, 0.5);
         color: $lightColor;
-        border: 1px solid rgba(20,20,20,0.4);
         border-radius: 2px;
       }
       input:focus {
@@ -172,363 +222,95 @@ header {
       }
       .submit {
         color: $lightColor;
-        padding: 12px;
-        background-color: $contrastColor;
+        padding: 15px 30px;
+        margin-top: 20px;
+        background-color: transparentize($darkColor, 0.3);
         border-radius: 2px;
         font-weight: 300;
         text-transform: uppercase;
-        margin-top: 20px;
-        letter-spacing: 0.05em;
         cursor:pointer;
-        transition: 0.15s all ease;
+        transition: 0.2s all ease;
       }
       .submit:hover {
-        background-color: $primaryColor;
-        transition: 0.15s all ease;
+        color: $darkColor;
+        background-color: transparentize($lightColor, 0.3);
+        transition: 0.2s all ease;
       }
     }
   }
+  #login-background, #register-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
 }
 
-.searchDiv {
-  margin: 0 auto;
-  h1 {
-    text-align: center;
-  }
+#searchDiv {
+  padding-top: 80px;
   #searchForm {
     width: 100%;
     position: relative;
     input {
+      font-family: 'Roboto', sans-serif;
       padding: 1rem 0;
       width: 100%;
-      background-color: rgba(249,249,250,0.1);
-      color: $darkColor;
+      background-color: transparentize($lightColor, 0.3);
+      color: $lightColor;
       font-size: 1em;
       font-weight: 500;
       transition: 0.2s all ease;
       text-align: center;
     }
     input:focus {
-      background-color: $lightColor;
+      background-color: transparentize($darkColor, 0.3);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       outline: none;
     }
     input:hover, {
-      background-color: $lightColor;
+      background-color: transparentize($darkColor, 0.3);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       z-index: 1;
     }
     input:hover::-webkit-input-placeholder {
-      opacity: 1;
-      color: $darkColor;
+      opacity: 0.8;
+      color: $lightColor;
       transition: 0.2s all ease;
     }
     input:focus::-webkit-input-placeholder {
       opacity: 0;
     }
     ::placeholder {
-      opacity: 0.4;
+      opacity: 0.8;
+      font-family: 'Roboto', sans-serif;
       font-weight: 300;
-      color: $lightColor;
+      color: lighten($darkColor, 40%);
       text-align: center;
       transition: 0.2s all ease;
     }
   }
 }
 
-// grid for movies
-#movies {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  align-content: flex-start;
-  .movie-item {
-    position: relative;
-    width: 20%;
-    height: 29.75vw;
-    overflow: hidden;
-    cursor:pointer;
-    img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      transition: 0.4s all ease;
-      z-index: -1;
-    }
-    .text {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(37,35,47,0.9);
-      transition: 0.4s all ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      h5 {
-        font-size: 1.4em;
-        font-weight: 700;
-        padding: 20px;
-        text-transform: uppercase;
-      }
-      .type {
-        padding: 10px;
-        font-weight: 300;
-        text-transform: uppercase;
-        font-size: 0.9em;
-        transition: 0.15s all ease;
-        position: absolute;
-        color: $lightColor;
-        background-color: $secondaryColor;
-        bottom: 0;
-        right: 0;
-        margin: 0;
-      }
-      .type:hover {
-        background-color: $primaryColor;
-        transition: 0.15s all ease;
-      }
-    }
-  }
-  .movie-item:hover {
-    img {
-      transform: scale(1.1);
-      transition: 0.4s all ease;
-    }
-    .text {
-      background-color: rgba(37,35,47,0.4);
-      transition: 0.4s all ease;
-    }
-  }
-}
 
-#movie {
+#content {
   width: 100%;
+  min-height: 100%;
   position: relative;
-  .my-screen {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: auto;
-    .total-score {
-      color: $lightColor;
-      padding: 12px;
-      background-color: rgba(255,147,0,0.3);
-      font-weight: 300;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      margin-bottom: 0;
-      text-align: center;
-      span {
-        font-weight: 500;
-        font-size: 3em;
-      }
-    }
-    .user-rating {
-      color: $lightColor;
-      padding: 12px;
-      background-color: rgba(137,178,186,0.3);
-      font-weight: 300;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      position: absolute;
-      top: 0;
-      right: 0;
-      text-align: center;
-      span {
-        font-weight: 500;
-        font-size: 3em;
-      }
-    }
-    img {
-      max-height: 100%;
-      max-width: 40%;
-      float: left;
-    }
-    .text {
-      margin: 40px auto;
-      width: 40%;
-      p {
-        font-weight: 400;
-        margin-bottom: 20px;
-      }
-      .title {
-        font-size: 2.4em;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: $lightColor;
-      }
-      .genre {
-        font-size: 1.2em;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: $primaryColor;
-      }
-      .plot {
-        line-height: 1.6em;
-        opacity: 0.9;
-      }
-      span {
-        text-transform: uppercase;
-        opacity: 0.5;
-      }
-      .submit {
-        color: $lightColor;
-        padding: 12px;
-        background-color: $contrastColor;
-        border-radius: 2px;
-        font-weight: 300;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        cursor:pointer;
-        transition: 0.15s all ease;
-        margin-bottom: 20px;
-        margin-right: 20px;
-        float: left;
-      }
-      .submit:hover {
-        background-color: $primaryColor;
-        transition: 0.15s all ease;
-      }
-      .remove {
-        color: $lightColor;
-        padding: 12px;
-        background-color: $secondaryColor;
-        border-radius: 2px;
-        font-weight: 300;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        cursor:pointer;
-        transition: 0.15s all ease;
-        margin-bottom: 20px;
-      }
-      .remove:hover {
-        background-color: $primaryColor;
-        transition: 0.15s all ease;
-      }
-      .trailer {
-        color: $darkColor;
-        padding: 12px;
-        background-color: $lightColor;
-        border-radius: 2px;
-        font-weight: 300;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        cursor:pointer;
-        transition: 0.15s all ease;
-        margin-bottom: 20px;
-        margin-right: 20px;
-        float: left;
-      }
-      .trailer:hover {
-        background-color: $primaryColor;
-        color: $lightColor;
-        transition: 0.15s all ease;
-      }
-      form {
-        float: right;
-        width: auto;
-      }
-    }
-    #rating {
-      display: none;
-      z-index: 1;
-      background-color: rgba(37,35,47,0.9);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      .rating-integer {
-        width: 10%;
-        height: 100%;
-        transition: 0.4s all ease;
-        display: flex;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-        p {
-          position: absolute;
-          text-align: center;
-          width: 100%;
-          overflow: hidden;
-          font-size: 40em;
-          opacity: 0.05;
-          font-weight: 700;
-          color: $lightColor;
-        }
-        .rating-decimal {
-          z-index: 2;
-          width: 10%;
-          height: 100%;
-          transition: 0.4s all ease;
-          display: flex;
-          align-items: center;
-          position: relative;
-          cursor: pointer;
-          p {
-            position: absolute;
-            width: 100%;
-            overflow: hidden;
-            font-size: 5em;
-            opacity: 0;
-            font-weight: 700;
-            transform: scale(0.5);
-            transition: 0.4s all ease;
-            color: $lightColor;
-          }
-        }
-        .rating-decimal:hover {
-          width: 40%;
-          background-color: rgba(249,249,250,0.5);
-          transition: 0.4s all ease;
-          p {
-            opacity: 1;
-            transform: scale(1);
-            transition: 0.4s all ease;
-          }
-        }
-      }
-      .rating-integer:hover {
-        width: 60%;
-        background-color: rgba(137,178,186,0.2);
-        transition: 0.4s all ease;
-      }
-      .rating-form {
-        display: none;
-      }
-    }
-    .rate-button {
-      color: $lightColor;
-      padding: 12px;
-      background-color: $contrastColor;
-      border-radius: 2px;
-      font-weight: 300;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      cursor:pointer;
-      transition: 0.15s all ease;
-      margin-bottom: 20px;
-      margin-right: 20px;
-      float: left;
-    }
-    .rate-button:hover {
-      background-color: $primaryColor;
-      transition: 0.15s all ease;
-    }
-  }
-  .background {
-    position: absolute;
+  background: linear-gradient(to left top, rgba(249,249,250,0.7) 0%, rgba(249,249,250,1) 100%);
+  #content-background {
     top: 0;
+    position: absolute;
+    height: 100%;
     width: 100%;
-    object-fit: cover;
-    max-height: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
     z-index: -1;
-    opacity: 0.1;
   }
 }
 
@@ -536,8 +318,8 @@ header {
   width: 100%;
   display: flex;
   align-items: center;
+  margin: 10px 0;
   flex-wrap: wrap;
-  background-color: rgba(249,249,250,0.025);
   h3 {
     width: 100%;
     text-align: center;
@@ -581,7 +363,7 @@ header {
       transition: 0.4s all ease;
     }
     .text {
-      background-color: rgba(37,35,47,0.9);
+      background-color: transparentize($darkColor, 0.3);
       transition: 0.4s background-color ease;
       h5 {
         opacity: 1;
@@ -594,26 +376,283 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    background-color: transparentize($lightColor, 0.5);
     h5 {
-      font-size: 1.4em;
+      color: $darkColor;
+      font-size: 1.6em;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 500;
       padding: 20px;
       text-align: center;
       overflow: hidden;
     }
-  }
-  .title-movies {
-    background-color: $darkColor;
-  }
-  .title-series {
-    background-color: $darkColor;
+    h6 {
+      color: $darkColor;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 20px;
+      text-align: center;
+      overflow: hidden;
+      line-height: 3em;
+      span {
+        font-weight: 700;
+        font-size: 3em;
+      }
+    }
   }
 }
 
-#footer {
-  color: $lightColor;
-  text-align: center;
-  background-color:rgba(249,249,250,0.05);
-  padding: 1.5rem;
+// grid for movies
+#movies {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  align-content: flex-start;
+  .movie-item {
+    position: relative;
+    width: 20%;
+    height: 29.75vw;
+    overflow: hidden;
+    cursor:pointer;
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transition: 0.4s all ease;
+      z-index: -1;
+    }
+    .text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: transparentize($darkColor, 1);
+      transition: 0.4s all ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h5 {
+        text-align: center;
+        color: transparentize($lightColor, 1);
+        font-size: 2em;
+        font-weight: 700;
+        padding: 20px;
+        text-transform: uppercase;
+        transition: 0.4s all ease;
+      }
+      .type {
+        padding: 10px;
+        font-weight: 300;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        transition: 0.2s all ease;
+        position: absolute;
+        color: $lightColor;
+        background-color: transparentize($darkColor, 0.3);
+        bottom: 0;
+        right: 0;
+        margin: 0;
+      }
+    }
+  }
+  .movie-item:hover {
+    img {
+      transform: scale(1.1);
+      transition: 0.4s all ease;
+    }
+    .text {
+      background-color: transparentize($darkColor, 0.3);
+      transition: 0.4s all ease;
+      h5 {
+        color: transparentize($lightColor, 0);
+        transition: 0.4s all ease;
+      }
+    }
+  }
+}
+
+
+#screen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: auto;
+  position: relative;
+  .total-score {
+    color: $lightColor;
+    padding: 12px;
+    background-color: transparentize($darkColor, 0.3);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    text-align: center;
+    span {
+      font-weight: 500;
+      font-size: 3em;
+    }
+  }
+  .user-rating {
+    color: $lightColor;
+    padding: 12px;
+    background-color: transparentize($darkColor, 0.3);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    span {
+      font-weight: 500;
+      font-size: 3em;
+    }
+  }
+  img {
+    max-height: 100%;
+    max-width: 40%;
+  }
+  .text {
+    margin: 40px auto;
+    width: 40%;
+    color: $darkColor;
+    p {
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+    .title {
+      font-size: 2.4em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .genre {
+      font-size: 1.2em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: $primaryColor;
+    }
+    .plot {
+      line-height: 1.6em;
+      opacity: 0.9;
+    }
+    .released {
+      margin-bottom: 40px;
+      span {
+        text-transform: uppercase;
+        opacity: 0.5;
+      }
+    }
+    .submit, .imdb, .trailer, .remove, .rate-button {
+      font-size: 1em;
+      font-weight: 300;
+      font-family: 'Roboto', sans-serif;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor:pointer;
+      transition: 0.2s all ease;
+      margin-bottom: 20px;
+      padding: 15px;
+      color: $lightColor;
+      background-color: lighten($darkColor, 10%);
+      transition: 0.2s all ease;
+    }
+    .submit, .remove {
+      float: right;
+    }
+    .trailer, .imdb, .rate-button {
+      margin-right: 20px;
+      float: left;
+    }
+    .submit:hover {
+      color: $lightColor;
+      background-color: $contrastColor;
+    }
+    .remove:hover {
+      color: $lightColor;
+      background-color: $secondaryColor;
+    }
+    .trailer:hover, .rate-button:hover {
+      color: $darkColor;
+      background-color: transparentize($lightColor, 0.3);
+    }
+    .imdb:hover {
+      background-color: rgba(245,197,24,1);
+      color: $darkColor;
+    }
+    .remove:hover, .submit:hover, .trailer:hover, .imdb:hover, .rate-button:hover {
+      transition: 0.2s all ease;
+    }
+  }
+  #rating {
+    display: none;
+    z-index: 1;
+    background-color: rgba(37,35,47,0.9);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .rating-integer {
+      width: 10%;
+      height: 100%;
+      transition: 0.4s all ease;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      p {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        overflow: hidden;
+        font-size: 20em;
+        opacity: 0.2;
+        font-weight: 700;
+        color: $lightColor;
+      }
+      .rating-decimal {
+        z-index: 2;
+        width: 10%;
+        height: 100%;
+        transition: 0.4s all ease;
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        p {
+          position: absolute;
+          width: 100%;
+          overflow: hidden;
+          font-size: 5em;
+          opacity: 0;
+          font-weight: 700;
+          transform: scale(0.5);
+          transition: 0.4s all ease;
+          color: $lightColor;
+        }
+      }
+      .rating-decimal:hover {
+        width: 40%;
+        background-color: rgba(249,249,250,0.8);
+        transition: 0.4s all ease;
+        p {
+          opacity: 1;
+          transform: scale(1);
+          transition: 0.4s all ease;
+        }
+      }
+    }
+    .rating-integer:hover {
+      width: 60%;
+      background-color: rgba(137,178,186,0.1);
+      transition: 0.4s all ease;
+    }
+    .rating-form {
+      display: none;
+    }
+  }
 }

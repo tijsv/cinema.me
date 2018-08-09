@@ -4,24 +4,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <title>cinema.me</title>
   </head>
   <body>
-    <header>
+
+    <div id="header">
       <h1 id="header-logo">cinema.me</h1>
       <% if(locals.user) { %>
-        <a class="menu" href="/">Home</a>
-        <a class="menu" href="/cinema">My cinema</a>
-        <p>Logged in as <span><%- user.username %></span></p>
-        <a href="/users/logout">Logout</a>
-      <% } else { %>
-        <a href="/users/register">Register</a>
-        <a href="/users/login">Login</a>
+      <div class="links-center">
+        <a class="menu" href="/">home</a>
+        <a class="menu" href="/cinema">my cinema</a>
+      </div>
       <% } %>
-    </header>
+      <div class="links-right">
+        <% if(locals.user) { %>
+        <p>Logged in as <span><%- user.username %></span></p>
+        <a href="/users/logout">logout</a>
+        <% } else { %>
+        <a href="/users/login">login</a>
+        <% } %>
+      </div>
+    </div>
 
     <%- messages() %>
     <% if(locals.errors) { %>
@@ -40,9 +47,9 @@
 
     <%- defineContent('main') %>
 
-    <div id="footer">
+    <!-- <div id="footer">
       <p>Cinema.me - Copyright &copy; 2018 - Tijs Verellen</p>
-    </div>
+    </div> -->
 
     <!-- bootstrap js -->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>

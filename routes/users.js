@@ -12,7 +12,10 @@ router.get('/login', function(request, response) {
     request.flash('error', 'You are already logged in.');
     response.redirect('/');
   } else {
-    response.render('./pages/login.ejs');
+    let randomBackdrop = getRandomBackdrop();
+    response.render('./pages/login.ejs', {
+      randomBackdrop: randomBackdrop
+    });
   }
 })
 
@@ -22,7 +25,10 @@ router.get('/register', function(request, response) {
     request.flash('error', 'You are already logged in. Log out first to register a new account.');
     response.redirect('/');
   } else {
-    response.render('./pages/register.ejs');
+    let randomBackdrop = getRandomBackdrop();
+    response.render('./pages/register.ejs', {
+      randomBackdrop: randomBackdrop
+    });
   }
 })
 
@@ -101,5 +107,18 @@ router.post('/login', function(request, response, next){
     failureFlash: true
   })(request, response, next);
 })
+
+function getRandomBackdrop() {
+  let arrayOfBackdrops = [
+    "https://image.tmdb.org/t/p/original/ns0IojuqJe24AHTxe8RVcWJUCDM.jpg",
+    "https://image.tmdb.org/t/p/original/7mgKeg18Qml5nJQa56RBZO7dIu0.jpg",
+    "https://image.tmdb.org/t/p/original/A30ZqEoDbchvE7mCZcSp6TEwB1Q.jpg",
+    "https://image.tmdb.org/t/p/original/h5jqLrIv1tlszezv2UEWq9KBuoj.jpg",
+    "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"
+  ];
+  let random = Math.floor(Math.random()*arrayOfBackdrops.length);
+  let randomBackdrop = arrayOfBackdrops[random];
+  return randomBackdrop;
+}
 
 module.exports = router;

@@ -14,6 +14,7 @@ router.get('/', function(request, response) {
     request.flash('error', 'You have to log in first');
     response.redirect('/');
   } else {
+    let randomBackdrop = getRandomBackdrop();
     let movieArray = [];
     let movieCounter = 0;
     let movieIdArray = request.user.cinema.movies;
@@ -115,13 +116,14 @@ router.get('/', function(request, response) {
                   if(seriesCounter===seriesIdArray.length) {
                     response.render('./pages/cinema.ejs', {
                       movieArray: movieArray,
-                      seriesArray: seriesArray
+                      seriesArray: seriesArray,
+                      randomBackdrop: randomBackdrop
                     });
                   }
                 } else {
                   console.log('Impossible. If a series is in your list, it also got added to the series collection.');
                   request.flash('error', 'One or more of your listed series are not in the database. This should never happen. Contact the dev');
-                  // response.redirect('/');
+                  response.redirect('/');
                 }
               })
             }
@@ -129,7 +131,7 @@ router.get('/', function(request, response) {
         } else {
           console.log('Impossible. If a movie is in your list, it also got added to the movies collection.');
           request.flash('error', 'One or more of your listed movies are not in the database. This should never happen. Contact the dev');
-          // response.redirect('/');
+          response.redirect('/');
         }
       })
 
@@ -726,6 +728,19 @@ function getMovie(movie) {
   }
   var arrayToReturn = [id, type, title, poster, backdrop, genres, genreString, release_date, status, imdb_id, plot, trailer];
   return arrayToReturn;
+}
+
+function getRandomBackdrop() {
+  let arrayOfBackdrops = [
+    "https://image.tmdb.org/t/p/original/ns0IojuqJe24AHTxe8RVcWJUCDM.jpg",
+    "https://image.tmdb.org/t/p/original/7mgKeg18Qml5nJQa56RBZO7dIu0.jpg",
+    "https://image.tmdb.org/t/p/original/A30ZqEoDbchvE7mCZcSp6TEwB1Q.jpg",
+    "https://image.tmdb.org/t/p/original/h5jqLrIv1tlszezv2UEWq9KBuoj.jpg",
+    "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"
+  ];
+  let random = Math.floor(Math.random()*arrayOfBackdrops.length);
+  let randomBackdrop = arrayOfBackdrops[random];
+  return randomBackdrop;
 }
 
 module.exports = router;

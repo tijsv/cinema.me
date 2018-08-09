@@ -1,27 +1,29 @@
 <%- contentFor('main') %>
-<div class="content">
-  <div class="content-form">
-    <h1>register page</h1>
-    <form method="POST" action="/users/register">
-      <div class="form-item">
-        <label>Email:</label>
-        <input name="email" type="text"/>
-      </div>
-      <div class="form-item">
-        <label>Username:</label>
-        <input name="username" type="text"/>
-      </div>
-      <div class="form-item">
-        <label>Password:</label>
-        <input name="password" type="password"/>
-      </div>
-      <div class="form-item">
-        <label>Confirm password:</label>
-        <input name="password2" type="password"/>
-      </div>
-      <div class="form-item">
-        <input type="submit" value="Submit" class="submit"/>
-      </div>
-    </form>
-  </div>
+
+<div id="register">
+
+  <form method="POST" action="/users/register">
+    <div class="form-item">
+      <label>Email:</label>
+      <input name="email" type="text"/>
+    </div>
+    <div class="form-item">
+      <label>Username:</label>
+      <input name="username" type="text"/>
+    </div>
+    <div class="form-item">
+      <label>Password:</label>
+      <input name="password" type="password"/>
+    </div>
+    <div class="form-item">
+      <label>Confirm password:</label>
+      <input name="password2" type="password"/>
+    </div>
+    <div class="form-item">
+      <input type="submit" value="Submit" class="submit"/>
+    </div>
+  </form>
+
+  <div id="register-background" data-img="<%-randomBackdrop%>"></div>
+
 </div>

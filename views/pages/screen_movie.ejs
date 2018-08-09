@@ -1,8 +1,9 @@
 <%- contentFor('main') %>
-<div class="content no-margin">
 
-  <div class="searchDiv">
-    <form id="searchForm" autocomplete="off" method="POST" action="/cinema/search">
+<div id="content">
+
+  <div id="searchDiv">
+    <form method="POST" action="/cinema/search" id="searchForm" autocomplete="off" >
       <input type="text" id="searchText" name="search" placeholder="Click here to search for movies or series ..." />
     </form>
   </div>
@@ -10,61 +11,66 @@
   <div id="movies">
   </div>
 
-  <div id="movie">
-    <div class="my-screen">
-      <div class="scores">
-        <p class="total-score">
-          <%-total_score%>
-        </p>
-        <p class="user-rating">
-          <%-user_rating%>
-        </p>
-      </div>
-      <img src="<%-poster%>">
-      <div class="text">
-        <p class="title"><%-title%></p>
-        <p class="genre"><%-genreString%></p>
-        <p class="plot"><%-plot%></p>
-        <p class="released"><span>Released:</span> <%-release_date%></p>
-        <a class="trailer" href="<%-trailer%>" target="_blank">Watch trailer</a>
-        <%
-        var movieBool = false;
-        for (i=0;i<user.cinema.movies.length;i++) { %>
-        <% if (user.cinema.movies[i]===id) {
-        movieBool = true; %>
-        <a class="rate-button">Rate</a>
-        <form method="POST" action="/cinema/screen/<%-type%><%-id%>/delete">
+  <div id="screen">
+
+    <div class="scores">
+      <p class="total-score">
+        <%-total_score%>
+      </p>
+      <p class="user-rating">
+        <%-user_rating%>
+      </p>
+    </div>
+
+    <img src="<%-poster%>">
+
+    <div class="text">
+      <p class="title"><%-title%></p>
+      <p class="genre"><%-genreString%></p>
+      <p class="plot"><%-plot%></p>
+      <p class="released"><span>Released:</span> <%-release_date%></p>
+      <a class="trailer" href="<%-trailer%>" target="_blank">Watch trailer</a>
+      <a class="imdb" href="https://www.imdb.com/title/<%-imdb_id%>" target="_blank">IMDb info</a>
+      <% var movieBool = false;
+      for (i=0;i<user.cinema.movies.length;i++) { %>
+      <% if (user.cinema.movies[i]===id) {
+      movieBool = true; %>
+      <a class="rate-button">Rate</a>
+      <form method="POST" action="/cinema/screen/<%-type%><%-id%>/delete">
+        <input type="hidden" name="id" value="<%-id%>"/>
+        <input type="hidden" name="type" value="<%-type%>"/>
+        <input class="remove" type="submit" value="Remove from list"/>
+      </form>
+      <% } } %>
+      <% if(!movieBool) { %>
+      <form method="POST" action="/cinema/screen/<%-type%><%-id%>">
+        <input type="hidden" name="id" value="<%-id%>"/>
+        <input type="hidden" name="type" value="<%-type%>"/>
+        <input type="hidden" name="title" value="<%-title%>"/>
+        <input type="hidden" name="poster" value="<%-poster%>"/>
+        <input type="hidden" name="backdrop" value="<%-backdrop%>"/>
+        <input type="hidden" name="genres" value="<%-genres%>"/>
+        <input type="hidden" name="release_date" value="<%-release_date%>"/>
+        <input type="hidden" name="status" value="<%-status%>"/>
+        <input type="hidden" name="imdb_id" value="<%-imdb_id%>"/>
+        <input class="submit" type="submit" value="Add to list"/>
+      </form>
+      <% } %>
+    </div>
+
+    <div id="rating">
+      <div class="rating-form">
+        <form id="rating-form" method="POST" action="/cinema/screen/<%-type%><%-id%>/rating">
           <input type="hidden" name="id" value="<%-id%>"/>
           <input type="hidden" name="type" value="<%-type%>"/>
-          <input class="remove" type="submit" value="Remove from list"/>
+          <input type="number" name="score" step=".1"/>
+          <input class="submit" type="submit" value="Rate this movie"/>
         </form>
-        <% } } %>
-        <% if(!movieBool) { %>
-        <form method="POST" action="/cinema/screen/<%-type%><%-id%>">
-          <input type="hidden" name="id" value="<%-id%>"/>
-          <input type="hidden" name="type" value="<%-type%>"/>
-          <input type="hidden" name="title" value="<%-title%>"/>
-          <input type="hidden" name="poster" value="<%-poster%>"/>
-          <input type="hidden" name="backdrop" value="<%-backdrop%>"/>
-          <input type="hidden" name="genres" value="<%-genres%>"/>
-          <input type="hidden" name="release_date" value="<%-release_date%>"/>
-          <input type="hidden" name="status" value="<%-status%>"/>
-          <input type="hidden" name="imdb_id" value="<%-imdb_id%>"/>
-          <input class="submit" type="submit" value="Add to list"/>
-        </form>
-        <% } %>
-      </div>
-      <div id="rating">
-        <div class="rating-form">
-          <form id="rating-form" method="POST" action="/cinema/screen/<%-type%><%-id%>/rating">
-            <input type="hidden" name="id" value="<%-id%>"/>
-            <input type="hidden" name="type" value="<%-type%>"/>
-            <input type="number" name="score" step=".1"/>
-            <input class="submit" type="submit" value="Rate this movie"/>
-          </form>
-        </div>
       </div>
     </div>
-    <img class="background" src="<%-backdrop%>">
+
   </div>
+
+  <img id="content-background" data-img="<%-backdrop%>">
+
 </div>
