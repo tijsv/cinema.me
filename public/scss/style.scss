@@ -85,7 +85,7 @@ body {
     font-weight: 300;
     text-transform: uppercase;
     padding: 15px 30px;
-    background-color: transparentize($darkColor, 0.3);
+    background-color: transparentize($darkColor, 0.15);
     cursor: pointer;
     margin-left: -4px;
     border-radius: 2px;
@@ -93,7 +93,7 @@ body {
   }
   a:hover {
     color: $darkColor;
-    background-color: transparentize($lightColor, 0.3);
+    background-color: transparentize($lightColor, 0.15);
     transition: 0.2s all ease;
   }
   p {
@@ -160,7 +160,7 @@ body {
         font-weight: 300;
         text-transform: uppercase;
         padding: 15px 30px;
-        background-color: transparentize($darkColor, 0.3);
+        background-color: transparentize($darkColor, 0.15);
         margin: 0 20px 0 0;
         cursor: pointer;
         border-radius: 2px;
@@ -168,7 +168,7 @@ body {
       }
       a:hover {
         color: $darkColor;
-        background-color: transparentize($lightColor, 0.3);
+        background-color: transparentize($lightColor, 0.15);
         transition: 0.2s all ease;
       }
     }
@@ -210,7 +210,7 @@ body {
         font-size: 1em;
         font-weight: 500;
         box-sizing : border-box;
-        background-color: transparentize($darkColor, 0.5);
+        background-color: transparentize($darkColor, 0.3);
         color: $lightColor;
         border-radius: 2px;
       }
@@ -224,7 +224,7 @@ body {
         color: $lightColor;
         padding: 15px 30px;
         margin-top: 20px;
-        background-color: transparentize($darkColor, 0.3);
+        background-color: transparentize($darkColor, 0.15);
         border-radius: 2px;
         font-weight: 300;
         text-transform: uppercase;
@@ -233,7 +233,7 @@ body {
       }
       .submit:hover {
         color: $darkColor;
-        background-color: transparentize($lightColor, 0.3);
+        background-color: transparentize($lightColor, 0.15);
         transition: 0.2s all ease;
       }
     }
@@ -258,7 +258,7 @@ body {
       font-family: 'Roboto', sans-serif;
       padding: 1rem 0;
       width: 100%;
-      background-color: transparentize($lightColor, 0.3);
+      background-color: transparentize($lightColor, 0.15);
       color: $lightColor;
       font-size: 1em;
       font-weight: 500;
@@ -266,13 +266,13 @@ body {
       text-align: center;
     }
     input:focus {
-      background-color: transparentize($darkColor, 0.3);
+      background-color: transparentize($darkColor, 0.15);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       outline: none;
     }
     input:hover, {
-      background-color: transparentize($darkColor, 0.3);
+      background-color: transparentize($darkColor, 0.15);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       z-index: 1;
@@ -301,7 +301,7 @@ body {
   width: 100%;
   min-height: 100%;
   position: relative;
-  background: linear-gradient(to left top, rgba(249,249,250,0.7) 0%, rgba(249,249,250,1) 100%);
+  background: linear-gradient(to left top, rgba(249,249,250,0.5) 0%, rgba(249,249,250,1) 100%);
   #content-background {
     top: 0;
     position: absolute;
@@ -363,7 +363,7 @@ body {
       transition: 0.4s all ease;
     }
     .text {
-      background-color: transparentize($darkColor, 0.3);
+      background-color: transparentize($darkColor, 0.15);
       transition: 0.4s background-color ease;
       h5 {
         opacity: 1;
@@ -440,7 +440,7 @@ body {
         transition: 0.2s all ease;
         position: absolute;
         color: $lightColor;
-        background-color: transparentize($darkColor, 0.3);
+        background-color: transparentize($darkColor, 0.15);
         bottom: 0;
         right: 0;
         margin: 0;
@@ -453,7 +453,7 @@ body {
       transition: 0.4s all ease;
     }
     .text {
-      background-color: transparentize($darkColor, 0.3);
+      background-color: transparentize($darkColor, 0.15);
       transition: 0.4s all ease;
       h5 {
         color: transparentize($lightColor, 0);
@@ -473,7 +473,7 @@ body {
   .total-score {
     color: $lightColor;
     padding: 12px;
-    background-color: transparentize($darkColor, 0.3);
+    background-color: transparentize($darkColor, 0.15);
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -490,7 +490,7 @@ body {
   .user-rating {
     color: $lightColor;
     padding: 12px;
-    background-color: transparentize($darkColor, 0.3);
+    background-color: transparentize($darkColor, 0.15);
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -568,7 +568,7 @@ body {
     }
     .trailer:hover, .rate-button:hover {
       color: $darkColor;
-      background-color: transparentize($lightColor, 0.3);
+      background-color: transparentize($lightColor, 0.15);
     }
     .imdb:hover {
       background-color: rgba(245,197,24,1);
@@ -581,7 +581,7 @@ body {
   #rating {
     display: none;
     z-index: 1;
-    background-color: rgba(37,35,47,0.9);
+    background-color: transparentize($darkColor, 0.1);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -626,7 +626,7 @@ body {
       }
       .rating-decimal:hover {
         width: 40%;
-        background-color: rgba(249,249,250,0.8);
+        background-color: transparentize($lightColor, 0.5);
         transition: 0.4s all ease;
         p {
           opacity: 1;
@@ -637,7 +637,7 @@ body {
     }
     .rating-integer:hover {
       width: 60%;
-      background-color: rgba(137,178,186,0.1);
+      background-color: transparentize($lightColor, 0.9);
       transition: 0.4s all ease;
     }
     .rating-form {
