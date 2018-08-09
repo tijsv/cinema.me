@@ -10,8 +10,14 @@
 
   <div id="movies-user">
     <div class="title-movies">
-      <h5>Your movies</h5>
-      <h6><span><%-user.cinema.movies.length%></span></h6>
+      <h6>
+        <span><%-user.cinema.movies.length%></span><br />
+        <% if(user.cinema.movies.length===1) { %>
+          Movie
+        <% } else { %>
+          Movies
+        <% } %>
+      </h6>
     </div>
     <% if (movieArray.length != 0) { %>
     <% for (i=0;i<movieArray.length;i++) { %>
@@ -28,8 +34,9 @@
 
   <div id="series-user">
     <div class="title-series">
-      <h5>Your series</h5>
-      <h6><span><%-user.cinema.series.length%></span></h6>
+      <h6>
+        <span><%-user.cinema.series.length%></span><br />Series
+      </h6>
     </div>
     <% if (seriesArray.length != 0) { %>
     <% for (i=0;i<seriesArray.length;i++) { %>

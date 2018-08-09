@@ -378,27 +378,16 @@ body {
     align-items: center;
     flex-direction: column;
     background-color: transparentize($lightColor, 0.5);
-    h5 {
-      color: $darkColor;
-      font-size: 1.6em;
-      text-transform: uppercase;
-      font-weight: 500;
-      padding: 20px;
-      text-align: center;
-      overflow: hidden;
-    }
     h6 {
       color: $darkColor;
-      font-size: 0.9em;
+      font-size: 1em;
       text-transform: uppercase;
       font-weight: 500;
-      padding: 20px;
       text-align: center;
       overflow: hidden;
-      line-height: 3em;
       span {
         font-weight: 700;
-        font-size: 3em;
+        font-size: 6em;
       }
     }
   }
