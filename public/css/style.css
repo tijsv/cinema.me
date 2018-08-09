@@ -100,6 +100,13 @@ body {
       margin: 0 5px; }
   #header .links-right {
     z-index: 2; }
+    #header .links-right a {
+      color: #f9f9fa;
+      background-color: rgba(131, 34, 50, 0.9); }
+    #header .links-right a:hover {
+      color: #141414;
+      background-color: rgba(249, 249, 250, 0.85);
+      transition: 0.2s all ease; }
 
 #home {
   width: 100%;
@@ -136,7 +143,7 @@ body {
       font-weight: 300;
       text-transform: uppercase;
       padding: 15px 30px;
-      background-color: rgba(20, 20, 20, 0.85);
+      background-color: rgba(131, 34, 50, 0.9);
       margin: 0 20px 0 0;
       cursor: pointer;
       border-radius: 2px;
@@ -218,19 +225,19 @@ body {
       font-family: 'Roboto', sans-serif;
       padding: 1rem 0;
       width: 100%;
-      background-color: rgba(249, 249, 250, 0.85);
+      background-color: rgba(20, 20, 20, 0.85);
       color: #f9f9fa;
       font-size: 1em;
       font-weight: 500;
       transition: 0.2s all ease;
       text-align: center; }
     #searchDiv #searchForm input:focus {
-      background-color: rgba(20, 20, 20, 0.85);
+      background-color: rgba(20, 20, 20, 0.7);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       outline: none; }
     #searchDiv #searchForm input:hover {
-      background-color: rgba(20, 20, 20, 0.85);
+      background-color: rgba(20, 20, 20, 0.7);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       z-index: 1; }
@@ -343,12 +350,16 @@ body {
     width: 20%;
     height: 29.75vw;
     overflow: hidden;
-    cursor: pointer; }
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1, 1);
+    transform: translateZ(0); }
     #movies .movie-item img {
       position: absolute;
       width: 100%;
       height: 100%;
       overflow: hidden;
+      transform: scale(1.01);
       transition: 0.4s all ease;
       z-index: -1; }
     #movies .movie-item .text {
@@ -443,7 +454,7 @@ body {
       font-size: 1.2em;
       font-weight: 700;
       text-transform: uppercase;
-      color: #ff9300; }
+      color: #832232; }
     #screen .text .plot {
       line-height: 1.6em;
       opacity: 0.9; }
@@ -472,10 +483,10 @@ body {
       float: left; }
     #screen .text .submit:hover {
       color: #f9f9fa;
-      background-color: #89b2ba; }
+      background-color: #FFF07C; }
     #screen .text .remove:hover {
       color: #f9f9fa;
-      background-color: #cc433f; }
+      background-color: #5D737E; }
     #screen .text .trailer:hover, #screen .text .rate-button:hover {
       color: #141414;
       background-color: rgba(249, 249, 250, 0.85); }

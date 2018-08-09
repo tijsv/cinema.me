@@ -1,8 +1,10 @@
-$primaryColor: #ff9300; // rgb(255,147,0)
-$secondaryColor: #cc433f; // rgb(204,67,63)
-$contrastColor: #89b2ba; // rgb(137,178,186)
+$primaryColor: #832232; // rgb(255,147,0)
+$secondaryColor: #5D737E; // rgb(204,67,63)
+$contrastColor: #FFF07C; // rgb(137,178,186)
 $darkColor: rgba(20,20,20,1); // rgb(37,35,47)
 $lightColor: #f9f9fa; // rgb(249,249,250)
+
+// https://coolors.co/141414-f9f9fa-832232-5d737e-fff07c
 
 html, body, p, a, h1, h2, h3, h4, h5, h6, ul, li {
   padding: 0;
@@ -117,6 +119,15 @@ body {
   }
   .links-right {
     z-index: 2;
+    a {
+      color: $lightColor;
+      background-color: transparentize($primaryColor, 0.1);
+    }
+    a:hover {
+      color: $darkColor;
+      background-color: transparentize($lightColor, 0.15);
+      transition: 0.2s all ease;
+    }
   }
 }
 
@@ -160,7 +171,7 @@ body {
         font-weight: 300;
         text-transform: uppercase;
         padding: 15px 30px;
-        background-color: transparentize($darkColor, 0.15);
+        background-color: transparentize($primaryColor, 0.1);
         margin: 0 20px 0 0;
         cursor: pointer;
         border-radius: 2px;
@@ -258,7 +269,7 @@ body {
       font-family: 'Roboto', sans-serif;
       padding: 1rem 0;
       width: 100%;
-      background-color: transparentize($lightColor, 0.15);
+      background-color: transparentize($darkColor, 0.15);
       color: $lightColor;
       font-size: 1em;
       font-weight: 500;
@@ -266,13 +277,13 @@ body {
       text-align: center;
     }
     input:focus {
-      background-color: transparentize($darkColor, 0.15);
+      background-color: transparentize($darkColor, 0.3);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       outline: none;
     }
     input:hover, {
-      background-color: transparentize($darkColor, 0.15);
+      background-color: transparentize($darkColor, 0.3);
       padding: 1.5rem 0;
       transition: 0.2s all ease;
       z-index: 1;
@@ -410,11 +421,15 @@ body {
     height: 29.75vw;
     overflow: hidden;
     cursor:pointer;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    transform: translateZ(0);
     img {
       position: absolute;
       width: 100%;
       height: 100%;
       overflow: hidden;
+      transform: scale(1.01);
       transition: 0.4s all ease;
       z-index: -1;
     }
