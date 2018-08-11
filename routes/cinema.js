@@ -517,11 +517,20 @@ router.get('/movies', function(request, response) {
             movieArray.push(movie);
             movieCounter++;
             if(movieCounter===movieIdArray.length) {
-              console.log("rendering...");
+
+              // getUpcomingMovies([], 0, function(resultArray) {
+              //   console.log(resultArray);
+              //   response.render('./pages/movies.ejs', {
+              //     movieArray: movieArray,
+              //     randomBackdrop: randomBackdrop
+              //   })
+              // })
+
               response.render('./pages/movies.ejs', {
                 movieArray: movieArray,
                 randomBackdrop: randomBackdrop
               })
+
             }
           } else if(!movie) {
             console.log('This movie is not in our database? That\'s impossible');
@@ -768,6 +777,28 @@ function getMovie(movie) {
   }
   var arrayToReturn = [id, type, title, poster, backdrop, genres, genreString, release_date, status, imdb_id, plot, trailer];
   return arrayToReturn;
+}
+
+function getUpcomingMovies(resultArray, counter, callback) {
+  counter++
+  url = "https://api.themoviedb.org/3/discover/movie?api_key=" + api_key;
+  url += "&language=en-US&primary_release_date.gte=2018-08-09&primary_release_date.lte=2018-09-09";
+  url += "&with_release_type=3&sort_by=primary_release_date.asc&region=US|NL|BE&page=" + counter;
+  axios.get(url)
+  .then(resp => {
+    let result = resp.data;
+    let total_pages = result.total_pages;
+    let results = result.results;
+    if(counter===total_pages) {
+      return callback(resultArray);
+    } else {
+      resultArray = resultArray.concat(results);
+      return getUpcomingMovies(resultArray, counter, callback);
+    }
+  })
+  .catch(error => {
+    console.log(error);
+  });
 }
 
 function getRandomBackdrop() {

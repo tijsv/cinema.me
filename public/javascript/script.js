@@ -13,23 +13,68 @@ $(document).ready(function(){
   if(homeBackground) {
     homeBackground.style.backgroundImage = 'url(' + homeBackground.dataset.img + ')';
   }
-
   var loginBackground = document.getElementById('login-background');
   if(loginBackground) {
     loginBackground.style.backgroundImage = 'url(' + loginBackground.dataset.img + ')';
   }
-
   var registerBackground = document.getElementById('register-background');
   if(registerBackground) {
     registerBackground.style.backgroundImage = 'url(' + registerBackground.dataset.img + ')';
   }
-
   var contentBackground = document.getElementById('content-background');
   if(contentBackground) {
     contentBackground.style.backgroundImage = 'url(' + contentBackground.dataset.img + ')';
   }
+  var filterDiv = document.getElementById('filters');
+  if(filterDiv) {
+    generateFilters(filterDiv);
+  }
 
 });
+
+function filterByGenre(genre) {
+  // wat moet dit doen:
+  // check filters. if hasClass('clicked'), then add genre to filterGenres
+  // filter movies on any of the filterGenres
+  // default moeten alle genres geselecteerd zijn (dus allemaal class .clicked)
+  // all button toevoegen
+  var filters = $('.filter');
+  for(i=0;i<filters.length;i++) {
+    if(filters[i].innerHTML===genre){
+      filters[i].classList.toggle('clicked');
+    }
+  }
+  $('.movie').each(function() {
+    if($(this).css('display')=='none') {
+      $(this).toggle();
+    }
+    var genres = $(this).attr('data-genres').split(',');
+    if(!genres.includes(genre)) {
+      $(this).toggle();
+    }
+  })
+}
+
+function generateFilters(filterDiv) {
+  var allgenresWithDuplicates = [];
+  var allgenres = [];
+  $('.movie').each(function() {
+    var genres = $(this).attr('data-genres').split(',');
+    allgenresWithDuplicates = allgenresWithDuplicates.concat(genres);
+  })
+  for(i=0;i<allgenresWithDuplicates.length;i++) {
+    if(!allgenres.includes(allgenresWithDuplicates[i])) {
+      allgenres.push(allgenresWithDuplicates[i]);
+    }
+  }
+  for(i=0;i<allgenres.length;i++) {
+    var newLink = document.createElement('a');
+    newLink.innerHTML = allgenres[i];
+    newLink.className = 'filter';
+    newLink.setAttribute('onclick', 'filterByGenre("' + allgenres[i] + '")');
+    filterDiv.append(newLink);
+  }
+}
 
 function generateRatingGrid() {
   for(i=0;i<10;i++){

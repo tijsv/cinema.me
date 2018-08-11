@@ -270,6 +270,32 @@ body {
     background-position: center;
     z-index: -1; }
 
+#movies #filters {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+  #movies #filters a {
+    font-size: 1em;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: 0.2s all ease;
+    margin-bottom: 20px;
+    padding: 15px;
+    color: #f9f9fa;
+    background-color: #2e2e2e;
+    margin-right: 10px;
+    transition: 0.2s all ease; }
+  #movies #filters .clicked {
+    background-color: red; }
+#movies .invisible {
+  opacity: 0;
+  transition: 0.4s all ease; }
+#movies .movie {
+  opacity: 1;
+  transition: 0.4s all ease; }
+
 #movies-user, #series-user {
   width: 100%;
   display: flex;
@@ -339,13 +365,13 @@ body {
         font-weight: 700;
         font-size: 4em; }
 
-#movies {
+#searchResult {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   margin: 0 auto;
   align-content: flex-start; }
-  #movies .movie-item {
+  #searchResult .movie-item {
     position: relative;
     width: 20%;
     height: 29.75vw;
@@ -354,7 +380,7 @@ body {
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1, 1);
     transform: translateZ(0); }
-    #movies .movie-item img {
+    #searchResult .movie-item img {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -362,7 +388,7 @@ body {
       transform: scale(1.01);
       transition: 0.4s all ease;
       z-index: -1; }
-    #movies .movie-item .text {
+    #searchResult .movie-item .text {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -371,7 +397,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center; }
-      #movies .movie-item .text h5 {
+      #searchResult .movie-item .text h5 {
         text-align: center;
         color: rgba(249, 249, 250, 0);
         font-size: 2em;
@@ -379,7 +405,7 @@ body {
         padding: 20px;
         text-transform: uppercase;
         transition: 0.4s all ease; }
-      #movies .movie-item .text .type {
+      #searchResult .movie-item .text .type {
         padding: 10px;
         font-weight: 300;
         text-transform: uppercase;
@@ -391,13 +417,13 @@ body {
         bottom: 0;
         right: 0;
         margin: 0; }
-  #movies .movie-item:hover img {
+  #searchResult .movie-item:hover img {
     transform: scale(1.1);
     transition: 0.4s all ease; }
-  #movies .movie-item:hover .text {
+  #searchResult .movie-item:hover .text {
     background-color: rgba(20, 20, 20, 0.85);
     transition: 0.4s all ease; }
-    #movies .movie-item:hover .text h5 {
+    #searchResult .movie-item:hover .text h5 {
       color: #f9f9fa;
       transition: 0.4s all ease; }
 

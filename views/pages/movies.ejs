@@ -8,28 +8,34 @@
     </form>
   </div>
 
-  <div id="movies-user">
-    <div class="title-movies">
-      <h6>
-        <span><%-user.cinema.movies.length%></span><br />
-        <% if(user.cinema.movies.length===1) { %>
-          Movie
-        <% } else { %>
-          Movies
-        <% } %>
-      </h6>
-    </div>
-    <% if (movieArray.length != 0) { %>
-    <% for (i=0;i<movieArray.length;i++) { %>
-    <div class="movie" data-id="<%-movieArray[i].id%>">
-      <div class="list-item" onclick="resultSelected('<%-movieArray[i].id%>', 'movie')">
-        <img src="<%-movieArray[i].poster%>">
-        <div class="text">
-          <h5><%-movieArray[i].title%></h5>
+  <div id="movies">
+
+    <div id="filters"></div>
+
+    <div id="movies-user">
+      <div class="title-movies">
+        <h6>
+          <span><%-user.cinema.movies.length%></span><br />
+          <% if(user.cinema.movies.length===1) { %>
+            Movie
+          <% } else { %>
+            Movies
+          <% } %>
+        </h6>
+      </div>
+      <% if (movieArray.length != 0) { %>
+      <% for (i=0;i<movieArray.length;i++) { %>
+      <div class="movie" data-id="<%-movieArray[i].id%>" data-genres="<%-movieArray[i].genres%>">
+        <div class="list-item" onclick="resultSelected('<%-movieArray[i].id%>', 'movie')">
+          <img src="<%-movieArray[i].poster%>">
+          <div class="text">
+            <h5><%-movieArray[i].title%></h5>
+          </div>
         </div>
       </div>
+      <% } } %>
     </div>
-    <% } } %>
+
   </div>
 
   <div id="content-background" data-img="<%-randomBackdrop%>"></div>
