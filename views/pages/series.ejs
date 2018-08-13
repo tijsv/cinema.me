@@ -1,0 +1,39 @@
+<%- contentFor('main') %>
+
+<div id="content">
+
+  <div id="searchDiv">
+    <form method="POST" action="/cinema/search" id="searchForm" autocomplete="off" >
+      <input type="text" id="searchText" name="search" placeholder="Click here to search for movies or series ..." />
+    </form>
+  </div>
+
+  <div id="series">
+
+    <div id="filters" data-filters="All"></div>
+
+    <div id="series-user">
+      <div class="title-series">
+        <h6>
+          <span><%-user.cinema.series.length%></span><br />
+          Series
+        </h6>
+      </div>
+      <% if (seriesArray.length != 0) { %>
+      <% for (i=0;i<seriesArray.length;i++) { %>
+      <div class="series" data-id="<%-seriesArray[i].id%>" data-genres="<%-seriesArray[i].genres%>">
+        <div class="list-item" onclick="resultSelected('<%-seriesArray[i].id%>', 'tv')">
+          <img src="<%-seriesArray[i].poster%>">
+          <div class="text">
+            <h5><%-seriesArray[i].title%></h5>
+          </div>
+        </div>
+      </div>
+      <% } } %>
+    </div>
+
+  </div>
+
+  <div id="content-background" data-img="<%-randomBackdrop%>"></div>
+
+</div>

@@ -27,35 +27,74 @@ $(document).ready(function(){
   }
   var filterDiv = document.getElementById('filters');
   if(filterDiv) {
-    generateFilters(filterDiv);
+    var moviesDiv = document.getElementById('movies');
+    var seriesDiv = document.getElementById('series');
+    if(moviesDiv) {
+      generateMovieFilters(filterDiv);
+    } else if(seriesDiv) {
+      generateSeriesFilters(filterDiv);
+    }
+
   }
 
 });
 
-function filterByGenre(genre) {
-  // wat moet dit doen:
-  // check filters. if hasClass('clicked'), then add genre to filterGenres
-  // filter movies on any of the filterGenres
-  // default moeten alle genres geselecteerd zijn (dus allemaal class .clicked)
-  // all button toevoegen
-  var filters = $('.filter');
-  for(i=0;i<filters.length;i++) {
-    if(filters[i].innerHTML===genre){
-      filters[i].classList.toggle('clicked');
+function filterMoviesByGenre(genre) {
+  var filtersDiv = document.getElementById('filters');
+  var filters = filtersDiv.dataset.filters.split(',');
+  if(genre === "All" && filters[0] !== "All") {
+    filters = ["All"];
+  } else {
+    var genreInFilters = false;
+    for(i=0;i<filters.length;i++) {
+      if(filters[i] === genre) {
+        filters.splice(i, 1);
+        genreInFilters = true;
+      }
+    }
+    if(!genreInFilters) {
+      if(filters[0] === "All" || filters[0] === "") {
+        filters = [genre];
+      } else {
+        filters.push(genre);
+      }
     }
   }
-  $('.movie').each(function() {
-    if($(this).css('display')=='none') {
-      $(this).toggle();
+  filtersDiv.dataset.filters = filters;
+  var allFilterElements = document.getElementsByClassName('filter');
+  // console.log(allFilterElements);
+  if(filters[0] === "All") {
+    for(i=0;i<allFilterElements.length;i++) {
+      allFilterElements[i].className = "filter selected";
     }
-    var genres = $(this).attr('data-genres').split(',');
-    if(!genres.includes(genre)) {
-      $(this).toggle();
+  } else {
+    for(i=0;i<allFilterElements.length;i++) {
+      if(filters.includes(allFilterElements[i].innerHTML)) {
+        allFilterElements[i].className = "filter selected";
+      } else {
+        allFilterElements[i].className = "filter";
+      }
     }
-  })
+  }
+  var movies = document.getElementsByClassName('movie');
+  if(filters[0] === "All") {
+    for(i=0;i<movies.length;i++) {
+      movies[i].style.display = "block";
+    }
+  } else {
+    for(i=0;i<movies.length;i++) {
+      movies[i].style.display = "none";
+      var movieGenres = movies[i].dataset.genres.split(',');
+      for(j=0;j<movieGenres.length;j++) {
+        if(filters.includes(movieGenres[j])) {
+          movies[i].style.display = "block";
+        }
+      }
+    }
+  }
 }
 
-function generateFilters(filterDiv) {
+function generateMovieFilters(filterDiv) {
   var allgenresWithDuplicates = [];
   var allgenres = [];
   $('.movie').each(function() {
@@ -67,14 +106,101 @@ function generateFilters(filterDiv) {
       allgenres.push(allgenresWithDuplicates[i]);
     }
   }
+  var newLink = document.createElement('a');
+  newLink.innerHTML = "All";
+  newLink.className = 'filter selected';
+  newLink.setAttribute('onclick', 'filterMoviesByGenre("All")');
+  filterDiv.append(newLink);
   for(i=0;i<allgenres.length;i++) {
     var newLink = document.createElement('a');
     newLink.innerHTML = allgenres[i];
-    newLink.className = 'filter';
-    newLink.setAttribute('onclick', 'filterByGenre("' + allgenres[i] + '")');
+    newLink.className = 'filter selected';
+    newLink.setAttribute('onclick', 'filterMoviesByGenre("' + allgenres[i] + '")');
     filterDiv.append(newLink);
   }
 }
+
+function filterSeriesByGenre(genre) {
+  var filtersDiv = document.getElementById('filters');
+  var filters = filtersDiv.dataset.filters.split(',');
+  if(genre === "All" && filters[0] !== "All") {
+    filters = ["All"];
+  } else {
+    var genreInFilters = false;
+    for(i=0;i<filters.length;i++) {
+      if(filters[i] === genre) {
+        filters.splice(i, 1);
+        genreInFilters = true;
+      }
+    }
+    if(!genreInFilters) {
+      if(filters[0] === "All" || filters[0] === "") {
+        filters = [genre];
+      } else {
+        filters.push(genre);
+      }
+    }
+  }
+  filtersDiv.dataset.filters = filters;
+  var allFilterElements = document.getElementsByClassName('filter');
+  // console.log(allFilterElements);
+  if(filters[0] === "All") {
+    for(i=0;i<allFilterElements.length;i++) {
+      allFilterElements[i].className = "filter selected";
+    }
+  } else {
+    for(i=0;i<allFilterElements.length;i++) {
+      if(filters.includes(allFilterElements[i].innerHTML)) {
+        allFilterElements[i].className = "filter selected";
+      } else {
+        allFilterElements[i].className = "filter";
+      }
+    }
+  }
+  var series = document.getElementsByClassName('series');
+  if(filters[0] === "All") {
+    for(i=0;i<series.length;i++) {
+      series[i].style.display = "block";
+    }
+  } else {
+    for(i=0;i<series.length;i++) {
+      series[i].style.display = "none";
+      var seriesGenres = series[i].dataset.genres.split(',');
+      for(j=0;j<seriesGenres.length;j++) {
+        if(filters.includes(seriesGenres[j])) {
+          series[i].style.display = "block";
+        }
+      }
+    }
+  }
+}
+
+function generateSeriesFilters(filterDiv) {
+  var allgenresWithDuplicates = [];
+  var allgenres = [];
+  $('.series').each(function() {
+    var genres = $(this).attr('data-genres').split(',');
+    allgenresWithDuplicates = allgenresWithDuplicates.concat(genres);
+  })
+  for(i=0;i<allgenresWithDuplicates.length;i++) {
+    if(!allgenres.includes(allgenresWithDuplicates[i])) {
+      allgenres.push(allgenresWithDuplicates[i]);
+    }
+  }
+  var newLink = document.createElement('a');
+  newLink.innerHTML = "All";
+  newLink.className = 'filter selected';
+  newLink.setAttribute('onclick', 'filterSeriesByGenre("All")');
+  filterDiv.append(newLink);
+  for(i=0;i<allgenres.length;i++) {
+    var newLink = document.createElement('a');
+    newLink.innerHTML = allgenres[i];
+    newLink.className = 'filter selected';
+    newLink.setAttribute('onclick', 'filterSeriesByGenre("' + allgenres[i] + '")');
+    filterDiv.append(newLink);
+  }
+}
+
 
 function generateRatingGrid() {
   for(i=0;i<10;i++){

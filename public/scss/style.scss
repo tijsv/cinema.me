@@ -1,10 +1,15 @@
-$primaryColor: #832232; // rgb(255,147,0)
-$secondaryColor: #5D737E; // rgb(204,67,63)
-$contrastColor: #FFF07C; // rgb(137,178,186)
+$primaryColor: #8A1C7C; // rgb(255,147,0)
+$secondaryColor: #542344; // rgb(204,67,63)
+$contrastColor: #bfd1e5; // rgb(137,178,186)
 $darkColor: rgba(20,20,20,1); // rgb(37,35,47)
 $lightColor: #f9f9fa; // rgb(249,249,250)
 
 // https://coolors.co/141414-f9f9fa-832232-5d737e-fff07c
+
+// https://coolors.co/141414-f9f9fa-8a1c7c-da4167-f0bcd4
+
+// https://coolors.co/141414-f9f9fa-8a1c7c-542344-bfd1e5
+
 
 html, body, p, a, h1, h2, h3, h4, h5, h6, ul, li {
   padding: 0;
@@ -324,10 +329,11 @@ body {
   }
 }
 
-#movies {
+#movies, #series {
   #filters {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    width: 100%;
+    margin-right: 10px;
+    overflow: hidden;
     a {
       font-size: 1em;
       font-weight: 300;
@@ -336,24 +342,17 @@ body {
       border-radius: 2px;
       cursor:pointer;
       transition: 0.2s all ease;
-      margin-bottom: 20px;
       padding: 15px;
       color: $lightColor;
       background-color: lighten($darkColor, 10%);
-      margin-right: 10px;
+      margin: 10px 0 0 10px;
+      float: left;
       transition: 0.2s all ease;
     }
-    .clicked {
-      background-color: red;
+    .selected {
+      background-color: $primaryColor;
+      transition: 0.2s all ease;
     }
-  }
-  .invisible {
-    opacity: 0;
-    transition: 0.4s all ease;
-  }
-  .movie {
-    opacity: 1;
-    transition: 0.4s all ease;
   }
 }
 
@@ -361,7 +360,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  margin: 10px 0 0 0;
   flex-wrap: wrap;
   h3 {
     width: 100%;
@@ -610,11 +609,11 @@ body {
     }
     .submit:hover {
       color: $lightColor;
-      background-color: $contrastColor;
+      background-color: $secondaryColor;
     }
     .remove:hover {
       color: $lightColor;
-      background-color: $secondaryColor;
+      background-color: red;
     }
     .trailer:hover, .rate-button:hover {
       color: $darkColor;

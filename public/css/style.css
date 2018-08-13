@@ -102,7 +102,7 @@ body {
     z-index: 2; }
     #header .links-right a {
       color: #f9f9fa;
-      background-color: rgba(131, 34, 50, 0.9); }
+      background-color: rgba(138, 28, 124, 0.9); }
     #header .links-right a:hover {
       color: #141414;
       background-color: rgba(249, 249, 250, 0.85);
@@ -143,7 +143,7 @@ body {
       font-weight: 300;
       text-transform: uppercase;
       padding: 15px 30px;
-      background-color: rgba(131, 34, 50, 0.9);
+      background-color: rgba(138, 28, 124, 0.9);
       margin: 0 20px 0 0;
       cursor: pointer;
       border-radius: 2px;
@@ -270,10 +270,11 @@ body {
     background-position: center;
     z-index: -1; }
 
-#movies #filters {
-  margin-top: 20px;
-  margin-bottom: 20px; }
-  #movies #filters a {
+#movies #filters, #series #filters {
+  width: 100%;
+  margin-right: 10px;
+  overflow: hidden; }
+  #movies #filters a, #series #filters a {
     font-size: 1em;
     font-weight: 300;
     font-family: 'Roboto', sans-serif;
@@ -281,26 +282,21 @@ body {
     border-radius: 2px;
     cursor: pointer;
     transition: 0.2s all ease;
-    margin-bottom: 20px;
     padding: 15px;
     color: #f9f9fa;
     background-color: #2e2e2e;
-    margin-right: 10px;
+    margin: 10px 0 0 10px;
+    float: left;
     transition: 0.2s all ease; }
-  #movies #filters .clicked {
-    background-color: red; }
-#movies .invisible {
-  opacity: 0;
-  transition: 0.4s all ease; }
-#movies .movie {
-  opacity: 1;
-  transition: 0.4s all ease; }
+  #movies #filters .selected, #series #filters .selected {
+    background-color: #8A1C7C;
+    transition: 0.2s all ease; }
 
 #movies-user, #series-user {
   width: 100%;
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  margin: 10px 0 0 0;
   flex-wrap: wrap; }
   #movies-user h3, #series-user h3 {
     width: 100%;
@@ -480,7 +476,7 @@ body {
       font-size: 1.2em;
       font-weight: 700;
       text-transform: uppercase;
-      color: #832232; }
+      color: #8A1C7C; }
     #screen .text .plot {
       line-height: 1.6em;
       opacity: 0.9; }
@@ -509,10 +505,10 @@ body {
       float: left; }
     #screen .text .submit:hover {
       color: #f9f9fa;
-      background-color: #FFF07C; }
+      background-color: #542344; }
     #screen .text .remove:hover {
       color: #f9f9fa;
-      background-color: #5D737E; }
+      background-color: red; }
     #screen .text .trailer:hover, #screen .text .rate-button:hover {
       color: #141414;
       background-color: rgba(249, 249, 250, 0.85); }

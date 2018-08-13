@@ -418,7 +418,7 @@ router.post('/screen/:typeid', function(request, response) {
         return;
       } else {
         request.flash('success', 'Successfully added to list');
-        response.redirect('/cinema');
+        response.redirect('/cinema/screen/'+type+id);
       }
     })
   }
@@ -535,6 +535,47 @@ router.get('/movies', function(request, response) {
           } else if(!movie) {
             console.log('This movie is not in our database? That\'s impossible');
             request.flash('error', 'This movie is not in our database? That\'s impossible!');
+            response.redirect('/cinema');
+          }
+        })
+      }
+    }
+  }
+})
+
+router.get('/series', function(request, response) {
+  if(!request.user) {
+    console.log('You have to log in first');
+    request.flash('error', 'You have to log in first');
+    response.redirect('/');
+  } else {
+    let seriesIdArray = request.user.cinema.series;
+    let seriesCounter = 0;
+    let seriesArray = [];
+    let randomBackdrop = getRandomBackdrop();
+    if(seriesIdArray.length===0) {
+      response.render('./pages/series.ejs', {
+        seriesArray: seriesArray,
+        randomBackdrop: randomBackdrop
+      })
+    } else {
+      for(i=0;i<seriesIdArray.length;i++) {
+        Series.findOne({id: seriesIdArray[i]}, function(error, series) {
+          if(error) { throw error; }
+          if(series) {
+            seriesArray.push(series);
+            seriesCounter++;
+            if(seriesCounter===seriesIdArray.length) {
+
+              response.render('./pages/series.ejs', {
+                seriesArray: seriesArray,
+                randomBackdrop: randomBackdrop
+              })
+
+            }
+          } else if(!series) {
+            console.log('This series is not in our database? That\'s impossible');
+            request.flash('error', 'This series is not in our database? That\'s impossible!');
             response.redirect('/cinema');
           }
         })
